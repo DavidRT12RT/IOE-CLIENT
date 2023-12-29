@@ -1,0 +1,25 @@
+/* 
+	Archivo central para gestionar colores y fuentes
+*/
+
+:root{
+
+	/* Text */
+	--main-font:"Arial",sans-serif;
+	--main-color:#1c18cd;
+
+	/* Background */
+	--main-background-color:#f5f5fa;
+};
+
+*,body {
+	margin:0px;
+	padding:0px;
+};
+
+.MainContainer{
+	background-color:var(--main-background-color);
+	width: 100vw;
+	height: 100vh;
+};
+

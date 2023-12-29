@@ -1,0 +1,27 @@
+/* Inventarios component styles */
+.Inventarios{
+
+    width: 100%;
+    height: 100%;
+
+    display: grid; 
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr; 
+    grid-template-rows: 1fr 1fr 1fr; 
+    gap: 0px 0px; 
+    grid-template-areas: 
+        "Finder Finder Results Results Results"
+        "Finder Finder Results Results Results"
+        "Finder Finder Results Results Results"
+    ;
+
+};
+
+
+.Inventarios .Finder {
+    grid-area: Finder;
+}
+
+.Inventarios .Results{
+    grid-area: Results;
+};
+
