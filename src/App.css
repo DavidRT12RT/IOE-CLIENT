@@ -2,6 +2,10 @@
 	Archivo central para gestionar colores y fuentes
 */
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root{
 
 	/* Text */

@@ -1,7 +1,7 @@
 import './App.css'
 
 //Pages
-import Inventarios from './pages/Inventarios';
+import Inventarios from './views/inventarios/Inventarios';
 
 // TODO: Make React routes
 

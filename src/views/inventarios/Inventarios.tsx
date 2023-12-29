@@ -1,19 +1,17 @@
-import "../styles/inventarios.css";
+import "../../assets/css/inventarios.css";
 
 const Inventarios = () => {
+
+
+
 
     return (
         <section className="Inventarios">
 
             <div className="Finder">
-                <input 
-                    type="text"
-                    placeholder="Find something..."
-                />
             </div>
 
             <div className="Results">
-                <p>algo</p>
             </div>
 
         </section>
