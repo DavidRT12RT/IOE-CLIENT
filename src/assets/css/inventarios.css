@@ -1,27 +1,24 @@
 /* Inventarios component styles */
 .Inventarios{
-
-    width: 100%;
-    height: 100%;
-
     display: grid; 
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr; 
     grid-template-rows: 1fr 1fr 1fr; 
-    gap: 0px 0px; 
+    gap: 10px 20px; 
     grid-template-areas: 
-        "Finder Finder Results Results Results"
-        "Finder Finder Results Results Results"
-        "Finder Finder Results Results Results"
+        "LeftColumn LeftColumn InvtInfo InvtInfo InvtInfo"
+        "LeftColumn LeftColumn InvtInfo InvtInfo InvtInfo"
+        "LeftColumn LeftColumn InvtInfo InvtInfo InvtInfo"
     ;
-
-};
-
-
-.Inventarios .Finder {
-    grid-area: Finder;
 }
 
-.Inventarios .Results{
-    grid-area: Results;
-};
+
+.Inventarios .LeftColumn{
+    grid-area: LeftColumn;
+}
+
+.Inventarios .InvtInfo{
+    grid-area: InvtInfo;
+    /* background-color: var(--main-background-color); */
+    padding:50px;
+}
 

@@ -1,4 +1,3 @@
-import './App.css'
 
 //Pages
 import Inventarios from './views/inventarios/Inventarios';
@@ -10,7 +9,7 @@ function App() {
 	return (
 		<>
 		 	<header></header>
-			<main>
+			<main className="MainContainer">
 				<Inventarios/>
     		</main>
 			<footer></footer>
