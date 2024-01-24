@@ -1,36 +1,39 @@
-import { useState } from "react";
 import { Button } from "@nextui-org/react";
 import { Steps, message } from "antd";
 
+//Custom hook
+import { useRegistrarProducto } from "./hooks/useRegistrarProducto";
+
+//Component's
 import InformacionBasica from "./components/RegistrarProducto/InformacionBasica";
 import InformacionDetallada from "./components/RegistrarProducto/InformacionDetallada";
 import Archivos from "./components/RegistrarProducto/Archivos";
 
 import "./assets/RegistrarProducto.css";
 
-
 export default function RegistrarProducto (){
 
-    
-    const [ current,setCurrent ] = useState<number>(0);
+    const {
+        current,
+        next,
+        prev,
 
-    const next = () => {
-        setCurrent(current + 1);
-    };
+        dataCategorias,
+        dataAlmacenes,
+        isLoadingAlmacenes,
+        isLoadingCategorias
+    } = useRegistrarProducto();
 
-    const prev = () => {
-        setCurrent(current - 1);
-    };
 
     const steps = [
         {
-            title:<p>Informacion basica del producto</p>,
+            title:"Informacion basica del producto",
             content:<InformacionBasica/>,
             id:1
         },
         {
             title:"Informacion detallada del producto",
-            content:<InformacionDetallada/>,
+            content:<InformacionDetallada categorias={dataCategorias?.categorias} almacenes={dataAlmacenes?.almacenes}/>,
             id:2
         },
         {
@@ -40,7 +43,7 @@ export default function RegistrarProducto (){
         }
     ];
 
-
+    if(isLoadingCategorias || isLoadingAlmacenes) return <h1>Cargando...</h1>
     return (
         <section className="registerContainer">
             <h1 className="font-bold text-3xl">Registrar un producto</h1>
@@ -60,4 +63,5 @@ export default function RegistrarProducto (){
             </div>
         </section>
     );
+
 }

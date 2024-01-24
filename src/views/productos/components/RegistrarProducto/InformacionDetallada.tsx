@@ -4,19 +4,24 @@ import { IoIosArrowForward } from "react-icons/io";
 
 import { Categoria, categoriasPrueba } from "../../data";
 
-export default function InformacionDetallada(){
+interface InformacionDetalladaPros{
+    categorias:any,
+    almacenes:any
+};
+
+export default function InformacionDetallada({categorias,almacenes}:InformacionDetalladaPros){
 
     const { isOpen: isOpenModalCategorias,onOpen: onOpenModalCategorias,onOpenChange: onOpenChangeModalCategorias } = useDisclosure();
     const { isOpen: isOpenModalAlmacenes,onOpen: onOpenModalAlmacenes,onOpenChange: onOpenChangeModalAlmacenes } = useDisclosure();
 
 
-    const Result = ({categoria}:{categoria:Categoria}) => {
+    const Result = ({result}:{result:any}) => {
 
         return (
             <div className="resultContainer">
                 <div className="flex items-center gap-2">
                     <CiSearch className="text-2xl"/>
-                    <p>{categoria.nombre}</p>
+                    <p>{result?.nombre}</p>
                 </div>
                 <IoIosArrowForward/>
             </div>
@@ -52,7 +57,7 @@ export default function InformacionDetallada(){
                                 </ModalHeader>
                                 <ModalBody>
                                     {
-                                        categoriasPrueba.map(categoria => <Result categoria={categoria} key={categoria.id}/>)
+                                        categorias.map(categoria => <Result result={categoria} key={categoria.id}/>)
                                     }
                                 </ModalBody>
                         </div>
@@ -65,28 +70,35 @@ export default function InformacionDetallada(){
     const ModalAlmacen = () => {
         return (
             <Modal 
+                size="lg"
                 isOpen={isOpenModalAlmacenes} 
                 onOpenChange={onOpenChangeModalAlmacenes}
                 hideCloseButton
                 style={{padding:0}}
-                backdrop="transparent"
+                // backdrop="transparent"
             >
                 <ModalContent>
                     {(onClose) => (
-                        <>
-                            <ModalHeader className="font-extrabold text-3xl"  style={{padding:"0px"}}>
+                        <div>
+                                <ModalHeader style={{padding:0}}>
                                     <Input
+                                        disableAnimation
+                                        variant="underlined"
+                                        size="lg"
+                                        className="font-extrabold text-3xl"
                                         startContent={
-                                            <p><CiSearch/></p>
+                                            <p className="font-extrabold"><CiSearch/></p>
                                         }
                                         isClearable
                                         placeholder="Buscar almacen"
                                     />
-                            </ModalHeader>
-                            <ModalBody>
-                                <h3>Recent</h3>
-                            </ModalBody>
-                        </>
+                                </ModalHeader>
+                                <ModalBody>
+                                    {
+                                        almacenes.map(almacen => <Result result={almacen} key={almacen.id}/>)
+                                    }
+                                </ModalBody>
+                        </div>
                     )}
                 </ModalContent>
             </Modal>
