@@ -1,77 +1,71 @@
+import { ChipProps, SortDescriptor } from "@nextui-org/react";
 import { useCallback, useMemo, useState } from "react";
 import { columns, statusOptions, users } from "../views/inventarios/data";
-import { SortDescriptor } from "@nextui-org/react";
-import { User } from "../types/user.ds";
 
 export default function useInventarios() {
 
-    const INITIAL_VISIBLE_COLUMNS = ["name","role","status","actions"];
+    const statusColorMap: Record<string, ChipProps["color"]> = {
+        active: "success",
+        paused: "danger",
+        vacation: "warning",
+    };
+    const INITIAL_VISIBLE_COLUMNS = ["name", "role", "status", "actions"];
+    type User = typeof users[0];
 
-    const [ filterValue,setFilterValue ] = useState("");
-    const [ selectedKeys,setSelectedKeys ] = useState<Selection | string>("");
-    const [ visibleColumns,setVisibleColumns ] = useState<Set<String> | string>(new Set(INITIAL_VISIBLE_COLUMNS));
-    const [ statusFilter,setStatusFilter ] = useState<string[]>([]);
+    const [filterValue, setFilterValue] = useState("");
+    const [selectedKeys, setSelectedKeys] = useState<Selection>(new Set([]));
+    const [visibleColumns, setVisibleColumns] = useState<Selection>(new Set(INITIAL_VISIBLE_COLUMNS));
+    const [statusFilter, setStatusFilter] = useState<Selection>("all");
     const [rowsPerPage, setRowsPerPage] = useState(10);
-    const [sortDescriptor, setSortDescriptor] = useState<SortDescriptor>({column: "age",direction: "ascending",});
+    const [sortDescriptor, setSortDescriptor] = useState<SortDescriptor>({
+        column: "age",
+        direction: "ascending",
+    });
     const [page, setPage] = useState(1);
+
+    const pages = Math.ceil(users.length / rowsPerPage);
 
     const hasSearchFilter = Boolean(filterValue);
 
     const headerColumns = useMemo(() => {
-        if(visibleColumns === "all") return columns;
+        if (visibleColumns === "all") return columns;
+
         return columns.filter((column) => Array.from(visibleColumns).includes(column.uid));
-    },[visibleColumns]);
+    }, [visibleColumns]);
 
     const filteredItems = useMemo(() => {
         let filteredUsers = [...users];
 
         if (hasSearchFilter) {
-            filteredUsers = filteredUsers.filter((user) =>
-                user.name.toLowerCase().includes(filterValue.toLowerCase()),
-            );
+        filteredUsers = filteredUsers.filter((user) =>
+            user.name.toLowerCase().includes(filterValue.toLowerCase()),
+        );
         }
-
-        if(statusFilter.length > 0){
-            filteredUsers = filteredUsers.filter(user => {
-                statusFilter.includes(user.status)
-            });
+        if (statusFilter !== "all" && Array.from(statusFilter).length !== statusOptions.length) {
+        filteredUsers = filteredUsers.filter((user) =>
+            Array.from(statusFilter).includes(user.status),
+        );
         }
 
         return filteredUsers;
-    },[users,filterValue,statusFilter]);
-
-    const pages = Math.ceil(filteredItems.length / rowsPerPage);
+    }, [users, filterValue, statusFilter]);
 
     const items = useMemo(() => {
-
         const start = (page - 1) * rowsPerPage;
         const end = start + rowsPerPage;
 
         return filteredItems.slice(start, end);
-
     }, [page, filteredItems, rowsPerPage]);
 
     const sortedItems = useMemo(() => {
-
         return [...items].sort((a: User, b: User) => {
-            const first = a[sortDescriptor.column as keyof User] as number;
-            const second = b[sortDescriptor.column as keyof User] as number;
-            const cmp = first < second ? -1 : first > second ? 1 : 0;
-            return sortDescriptor.direction === "descending" ? -cmp : cmp;});
+        const first = a[sortDescriptor.column as keyof User] as number;
+        const second = b[sortDescriptor.column as keyof User] as number;
+        const cmp = first < second ? -1 : first > second ? 1 : 0;
 
+        return sortDescriptor.direction === "descending" ? -cmp : cmp;
+        });
     }, [sortDescriptor, items]);
-    
-    const onNextPage = useCallback(() => {
-        if (page < pages) {
-            setPage(page + 1);
-        }
-    }, [page, pages]);
-
-    const onPreviousPage = useCallback(() => {
-        if (page > 1) {
-            setPage(page - 1);
-        }
-    }, [page]);
 
     const onRowsPerPageChange = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
         setRowsPerPage(Number(e.target.value));
@@ -88,17 +82,36 @@ export default function useInventarios() {
     }, []);
 
 
-    const onClear = useCallback(()=>{
-        setFilterValue("")
-        setPage(1)
-    },[])
 
     return {
-        headerColumns,
-        sortedItems,
+        filterValue,
+        setFilterValue,
+        onSearchChange,
 
         statusFilter,
-        setStatusFilter
+        setStatusFilter,
+
+        visibleColumns,
+        setVisibleColumns,
+
+
+        sortedItems,
+        headerColumns,
+
+        sortDescriptor,
+        setSortDescriptor,
+
+        selectedKeys,
+        setSelectedKeys,
+
+        onRowsPerPageChange,
+        hasSearchFilter,
+
+        items,        
+        page,
+        setPage,
+        pages,
+
     };
 
 };

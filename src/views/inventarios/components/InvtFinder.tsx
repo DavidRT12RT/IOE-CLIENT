@@ -1,26 +1,36 @@
 import { Button, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger, Input } from "@nextui-org/react";
 //Icons
-import { SearchIcon } from "./SearchIcon";
-import { ChevronDownIcon } from "./ChevronDownicon";
-import { PlusIcon } from "./PlusIcon";
-import { columns, statusOptions } from "./data";
-import { capitalize } from "../../utils";
-import useInventarios from "../../hooks/useInventarios";
+import { SearchIcon } from "../icons/SearchIcon";
+import { ChevronDownIcon } from "../icons/ChevronDownicon";
+import { PlusIcon } from "../icons/PlusIcon";
+import { columns, statusOptions } from "../data";
+import { capitalize } from "../../../utils";
+import useInventarios from "../../../hooks/useInventarios";
 
 
-export const Finder  = () => {
+export const InvtFinder  = () => {
 
     const {
+        filterValue,
+        setFilterValue,
+        onSearchChange,
+
         statusFilter,
-        setStatusFilter
+        setStatusFilter,
+
+        visibleColumns,
+        setVisibleColumns
     } = useInventarios();
 
     return (
         <div className="flex flex-col gap-4 w-full">
             <Input
                 isClearable
-                placeholder="Search by name..."
+                placeholder="Busca por nombre"
                 startContent={<SearchIcon/>}
+                value={filterValue}
+                onClear={() => setFilterValue("")}
+                onValueChange={onSearchChange}
             />
             <div className="flex gap-3">
                 <Dropdown>
@@ -32,8 +42,8 @@ export const Finder  = () => {
                             aria-label="Table Columns"
                             closeOnSelect={false}
                             selectedKeys={statusFilter}
-                            // onSelectionChange={(e) => }
                             selectionMode="multiple"
+                            onSelectionChange={setStatusFilter}
                     >
                         {statusOptions.map((status) => (
                             <DropdownItem key={status.uid} className="capitalize">
@@ -50,9 +60,9 @@ export const Finder  = () => {
                         disallowEmptySelection
                         aria-label="Table Columns"
                         closeOnSelect={false}
-                        // selectedKeys={visibleColumns}
+                        selectedKeys={visibleColumns}
                         selectionMode="multiple"
-                        // onSelectionChange={setVisibleColumns}
+                        onSelectionChange={setVisibleColumns}
                     >
                         {columns.map((column) => (
                             <DropdownItem key={column.uid} className="capitalize">

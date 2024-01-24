@@ -1,22 +1,45 @@
-import { useCallback } from "react";
+import { useCallback, useMemo } from "react";
 
 //Nextui
 import { Button, Chip, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger, Pagination, Table, TableBody, TableCell, TableColumn, TableHeader, TableRow, User } from "@nextui-org/react";
 
 //Icons
-import { VerticalDotsIcon } from "./VerticalDotsIcon";
+import { VerticalDotsIcon } from "../icons/VerticalDotsIcon";
 
 //Info local
-import { statusColorMap, users } from "./data";
-import useInventarios from "../../hooks/useInventarios";
+import { statusColorMap, users } from "../data";
 
-//Types
+//Custom hook to implement logic
+import useInventarios from "../../../hooks/useInventarios";
+
 
 export const InvtResults = () => {
 
     type User = typeof users[0];
 
-    const { headerColumns,sortedItems } = useInventarios();
+    const { 
+        items,        
+        page,
+        pages,
+
+        sortedItems,
+        headerColumns,
+
+        sortDescriptor,
+        setSortDescriptor,
+
+        selectedKeys,
+        setSelectedKeys,
+
+        filterValue,
+        statusFilter,
+        visibleColumns,
+        onSearchChange,
+        onRowsPerPageChange,
+        hasSearchFilter,
+        setPage
+    } = useInventarios();
+
 
     const renderCell = useCallback((user: User, columnKey: React.Key) => {        
         const cellValue = user[columnKey as keyof User];
@@ -59,7 +82,7 @@ export const InvtResults = () => {
             default:
                 return cellValue;
         }
-    }, []);
+    }, [sortedItems]);
 
 
     // const topContent = useMemo(() => {            
@@ -118,34 +141,40 @@ export const InvtResults = () => {
     //     );
     // }, [selectedKeys, items.length, page, pages, hasSearchFilter]);
 
-    return (
-            <Table
-                shadow="none"
-                aria-label="Tabla de inventarios existentes"
-                isHeaderSticky
-                // bottomContent={bottomContent}
-                bottomContentPlacement="outside"
-                selectionMode="multiple"
-                // topContent={topContent}
-                topContentPlacement="outside"
-            >
-                <TableHeader columns={headerColumns}>
-                    {(column) => (
+    return (            
+        <Table
+            shadow="none"
+            aria-label="Tabla de inventarios existentes"
+            isHeaderSticky
+            // bottomContent={bottomContent}
+            bottomContentPlacement="outside"
+            selectionMode="multiple"
+            // topContent={topContent}
+            topContentPlacement="outside"
+            className="mt-3"
+            sortDescriptor={sortDescriptor}
+            onSortChange={setSortDescriptor}
+            selectedKeys={selectedKeys}
+            onSelectionChange={setSelectedKeys}
+        >                
+            <TableHeader columns={headerColumns}>
+                {(column) => (
                     <TableColumn
                         key={column.uid}
                         align={column.uid === "actions" ? "center" : "start"}
+                        allowsSorting={column.sortable}
                     >
                         {column.name}
                     </TableColumn>
-                    )}
-                </TableHeader>
-                <TableBody emptyContent={"No users found"} items={sortedItems}>
-                    {(item) => (
-                        <TableRow key={item.id}>
-                            {(columnKey) => <TableCell>{renderCell(item, columnKey)}</TableCell>}
-                        </TableRow>
-                    )}
-                </TableBody>
-            </Table>
+                )}
+            </TableHeader>
+            <TableBody emptyContent={"No users found"} items={sortedItems}>
+                {(item) => (
+                    <TableRow key={item.id}>
+                        {(columnKey) => <TableCell>{renderCell(item, columnKey)}</TableCell>}
+                    </TableRow>
+                )}
+            </TableBody>
+        </Table>
     );
 };

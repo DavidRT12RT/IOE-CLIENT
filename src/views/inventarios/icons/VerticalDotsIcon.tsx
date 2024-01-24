@@ -1,4 +1,4 @@
-export const VerticalDotsIcon = ({size = 24, width, height, ...props}: IconSvgProps) => (
+export const VerticalDotsIcon = ({size = 24, width, height, ...props}:any) => (
   <svg
     aria-hidden="true"
     fill="none"

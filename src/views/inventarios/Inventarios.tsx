@@ -1,17 +1,17 @@
 //Components
-import { Finder } from "./Finder";
-import { InvtResults } from "./InvtResults";
-import { InvtInfo } from "./InvtInfo";
+import { InvtFinder } from "./components/InvtFinder";
+import { InvtResults } from "./components/InvtResults";
+import { InvtInfo } from "./components/InvtInfo";
 
 //Style CSS
-import "../../assets/css/inventarios.css";
+import "./assets/style.css";
 
 const Inventarios = () => {
-
+    // Responsabilidad unica o encapsulamiento
     return (
-        <section className="Inventarios w-full h-full p-4 font-roboto">
+        <section className="Inventarios w-full h-full p-4">
             <div className="LeftColumn">
-                <Finder/>
+                <InvtFinder/>
                 <InvtResults/>
             </div>
             <InvtInfo/>

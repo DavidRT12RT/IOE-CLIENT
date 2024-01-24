@@ -1,0 +1,29 @@
+/* LeftMenu Styles */
+.LeftMenu{
+    width: min-content;
+    min-height: 100vh;
+    padding:20px;
+
+    border-right: 1px solid black;
+    border-color: #e5e7eb;
+
+    display: flex;
+    flex-direction: column;
+        
+}
+
+
+.LeftMenu .icon {
+    font-size: 25px;
+    cursor: pointer;
+}
+
+.LeftMenu .options {
+    align-self: flex-end;    
+    margin-top: auto;
+
+    display: flex;
+    flex-direction: column;
+    gap:20px;
+
+}
