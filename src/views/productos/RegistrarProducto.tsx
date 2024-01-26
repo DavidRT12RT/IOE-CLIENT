@@ -1,4 +1,4 @@
-import { Button } from "@nextui-org/react";
+import { Button, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, useDisclosure } from "@nextui-org/react";
 import { Steps, message } from "antd";
 
 //Custom hook
@@ -14,14 +14,23 @@ import "./assets/RegistrarProducto.css";
 export default function RegistrarProducto (){
 
     const {
+        values,
         current,
         next,
         prev,
 
         dataCategorias,
         dataAlmacenes,
+        dataProductos,
         isLoadingAlmacenes,
-        isLoadingCategorias
+        isLoadingCategorias,
+        isLoadingProductos,
+        
+        errorCategorias,
+        errorAlmacenes,
+        errorProductos,
+
+        handleRegisterProducto
     } = useRegistrarProducto();
 
 
@@ -33,35 +42,59 @@ export default function RegistrarProducto (){
         },
         {
             title:"Informacion detallada del producto",
-            content:<InformacionDetallada categorias={dataCategorias?.categorias} almacenes={dataAlmacenes?.almacenes}/>,
+            content:<InformacionDetallada categorias={dataCategorias?.categorias} almacenes={dataAlmacenes?.almacenes} productos={dataProductos?.productos}/>,
             id:2
         },
         {
             title:"Fotos del producto",
             content:<Archivos/>,
             id:3
-        }
+        },
+        {
+            title:"Resumen",
+            // content:<Archivos/>,
+            id:4
+        },
     ];
 
-    if(isLoadingCategorias || isLoadingAlmacenes) return <h1>Cargando...</h1>
+    const { isOpen: isOpenModalRegistrar, onOpen: onOpenModalRegistrar,onClose:onCloseModalRegistrar } = useDisclosure();
+
+    if(isLoadingCategorias || isLoadingAlmacenes || isLoadingProductos ) return <h1>Cargando...</h1>
+    if(errorAlmacenes || errorCategorias || errorProductos ) return message.error(`Categorias o almacenes no se pudieron extraer del servidor , contacta a un administrador!`);
     return (
         <section className="registerContainer">
-            <h1 className="font-bold text-3xl">Registrar un producto</h1>
-            <p className="">Llenar los siguientes datos para registrar un nuevo producto a almacen.</p>
+            <Modal isOpen={isOpenModalRegistrar} onOpenChange={onOpenModalRegistrar} onClose={onCloseModalRegistrar}>
+                <ModalContent>
+                    {(onClose) => (
+                        <>
+                            <ModalHeader>Estas seguro?</ModalHeader>
+                            <ModalBody>Al registrar este producto este se relacionara en la base de datos y no habra vuelta atras</ModalBody>
+                            <ModalFooter>
+                                <Button onPress={onClose}>Volver atras</Button>
+                                <Button color="primary" onPress={() => {
+                                    handleRegisterProducto();
+                                    onClose();
+                                }}>Registrar producto</Button>
+                            </ModalFooter>
+                        </>
+                    )}
+                </ModalContent>
+            </Modal>
+            <h1 className="font-extrabold text-3xl">Registrar un producto</h1>
+            <p>Llenar los siguientes datos para registrar un nuevo producto a almacen.</p>
             <Steps current={current} items={steps}/>
             <div className="registerContent">{steps[current].content}</div>
             <div className="mt-3">
+                {current > 0 && (
+                    <Button color="primary" style={{ margin: '0 8px' }} onClick={() => prev()}>Anterior</Button>
+                )}
                 {current < steps.length - 1 && ( 
                     <Button color="primary" onClick={() => next()}> Siguiente</Button>
                 )}
                 {current === steps.length - 1 && (
-                    <Button color="primary" onClick={() => message.success('Registro completado!')}>Terminar</Button>
-                )}
-                {current > 0 && (
-                    <Button color="primary" style={{ margin: '0 8px' }} onClick={() => prev()}>Anterior</Button>
+                    <Button color="primary" onClick={onOpenModalRegistrar}>Terminar</Button>
                 )}
             </div>
         </section>
     );
-
 }

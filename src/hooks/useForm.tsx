@@ -13,7 +13,8 @@ export function useForm<T>(initialState:T) {
 
     return {
         values,
-        handleChange
+        handleChange,
+        setValues
     }
 
 }

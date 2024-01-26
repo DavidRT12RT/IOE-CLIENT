@@ -9,11 +9,22 @@
 @tailwind utilities;
 
 :root{
-	/* Text */
-	--main-color:#1c18cd;
-	/* Background */
-	--main-background-color:#f5f5fa;
+	--color-bkg:#f5f5fa; /*Background*/
+	--primary-color:#0000f1; /*Background*/
 }
+
+@media(prefers-color-scheme:dark){
+	:root{
+		--color-bkg:#f5f5fa; /*Background*/
+		--color-primary:#1c18cd; /*Texto*/
+	}
+}
+
+:root[data-theme="dark"]{
+	--color-bkg:#f5f5fa; /*Background*/
+	--color-primary:#1c18cd; /*Texto*/
+}
+
 
 *,body {
 	margin:0px;
@@ -30,4 +41,15 @@
 
 .MainContainer .MainContent{
 	flex:1;
+	padding: 40px;
+}
+
+@media (min-width:400px) and (max-width:1000px){
+	.MainContainer .LeftMenu{
+		display: none;
+	}
+
+	.MainContainer .MainContent{
+		padding:25px;
+	}
 }
