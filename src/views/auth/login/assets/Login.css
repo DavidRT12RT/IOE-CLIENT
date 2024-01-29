@@ -1,0 +1,152 @@
+/* Estilos del login */
+.loginContainer{
+    width: 100%;
+    height: 100vh;
+    display: grid; 
+    grid-auto-columns: 1fr; 
+    grid-auto-rows: 1fr; 
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr; 
+    grid-template-rows: 1fr; 
+    gap: 0px 0px; 
+    grid-template-areas: "loginMessage loginMessage loginMessage loginFormContainer loginFormContainer loginFormContainer"; 
+}
+
+.loginFormContainer { grid-area: loginFormContainer; }
+.loginMessage { grid-area: loginMessage; }
+
+.loginFormContainer{
+    padding:5em;
+    line-height: 3;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap:20px;
+
+    text-align: center;
+
+    position:relative;
+
+
+}
+
+.loginFormContainer .logo {
+    position:absolute;
+    top: 2em;
+    left:0;
+
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding:20px;
+}
+
+.loginFormContainer .moreInfo{
+    position:absolute;
+    bottom: 1em;
+    left:0;
+
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding:20px;
+}
+
+/* Login info styles */
+.loginMessage{
+    width: 100%;
+    height:100%;
+    position:relative;
+}
+
+
+.loginMessage .loginImageContainer{
+    border-radius: 0 50px 50px 0;
+    width: 100%;
+    height: 100%;
+
+    position:relative;
+
+}
+
+.loginMessage .loginImageContainer .blackScreen{
+    position:absolute;
+    top:0;
+    left:0;
+
+    opacity: 0.75;
+
+    background-color: black;
+    width: 100%;
+    height: 100%;
+
+    border:1px solid black;
+}
+
+.loginMessage .loginImageContainer img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+
+
+}
+
+.loginMessage .loginImageContainer .loginImageContent{
+    position:absolute;
+    bottom: 5%;
+    width: fit-content;
+    height: fit-content;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding:80px;
+    gap:10px;
+}
+
+
+.carrouselButtons{
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+    gap:8px;
+}
+
+.carrouselButtons button{
+    width: 20px;
+    border-radius: 5px;
+    height: 5px;
+    background-color: #fff;
+    opacity: .5;
+    transition: opacity .6s ease;
+}
+
+
+.carrouselButtons .active{
+    opacity: 1;
+    width: 30px;
+}
+
+@media (min-width:100px) and (max-width:1000px) {
+    .loginMessage {
+        display: none; /* Oculta loginMessage en el rango de ancho de pantalla especificado */
+    }
+
+    .loginFormContainer {
+        padding:2em;
+    }
+
+    .loginFormContainer {
+        grid-area: loginMessage; /* Coloca loginFormContainer en la misma área que loginMessage para que se extienda por toda la pantalla */
+        grid-column: span 6; /* Hace que loginFormContainer ocupe las 6 columnas disponibles */
+        /* padding:1em; */
+    }
+
+}
+

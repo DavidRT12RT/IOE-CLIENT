@@ -80,8 +80,8 @@ export default function RegistrarProducto (){
                     )}
                 </ModalContent>
             </Modal>
-            <h1 className="font-extrabold text-3xl">Registrar un producto</h1>
-            <p>Llenar los siguientes datos para registrar un nuevo producto a almacen.</p>
+            <h1 className="font-extrabold text-3xl lg:text-6xl font-playfair">Registrar un producto</h1>
+            <p className="text-gray-500">Llenar los siguientes datos para registrar un nuevo producto a almacen.</p>
             <Steps current={current} items={steps}/>
             <div className="registerContent">{steps[current].content}</div>
             <div className="mt-3">

@@ -13,7 +13,7 @@ export default function Producto() {
                         <img src="https://repositoriomdm.blob.core.windows.net/b2c/product-shots/20Dscto/19A0427700-500.png"/>
                     </div>
                     <div className="productoBasicInformation">
-                        <h1 className="text-5xl font-extrabold">Vinimex® Antibacterial 4 Litros</h1>
+                        <h1 className="text-3xl lg:text-6xl font-extrabold font-playfair">Vinimex® Antibacterial 4 Litros</h1>
                         {/* <p className="text-5xl">$3400</p> */}
                         <div className="grid grid-cols-2 gap-4">
                             <p className="font-bold">Material:</p><p className="text-gray-500">Petroleo</p>

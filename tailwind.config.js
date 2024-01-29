@@ -15,7 +15,10 @@ module.exports = {
                 "color-bkg": "rgb(var(--color-bkg))",
             },
             fontFamily:{
-                "roboto":['Roboto', "sans-serif"]
+                "roboto":['Roboto', "sans-serif"],
+                "raleway":["Raleway","sans-serif"],
+                "merriweather":["Merriweather","sans-serif"],
+                "playfair":["Playfair Display","sans-serif"]
             },
         colors:{
 
