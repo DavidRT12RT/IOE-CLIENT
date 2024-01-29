@@ -16,7 +16,7 @@
 
 .loginFormContainer{
     padding:5em;
-    line-height: 3;
+    line-height: 2.5;
 
     display: flex;
     flex-direction: column;

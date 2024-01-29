@@ -43,12 +43,12 @@
 	padding: 40px;
 }
 
-@media (min-width:400px) and (max-width:1000px){
+@media (min-width:100px) and (max-width:1000px){
 	.MainContainer .LeftMenu{
 		display: none;
 	}
 
-	/* .MainContainer .MainContent{
+	.MainContainer .MainContent{
 		padding:25px;
-	} */
+	}
 }

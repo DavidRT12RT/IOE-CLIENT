@@ -25,9 +25,8 @@ export default function AppRouter(){
                     path="/almacen/*"
                     element={
                         <PublicRoute>
-			                <nav><NavbarMenu/></nav>
 			                <main className="MainContainer">
-				                {/* <LeftMenu/> */}
+				                <LeftMenu/>
 				                <div className="MainContent">
                                 <Breadcrumbs>
                             	    <BreadcrumbItem>Home</BreadcrumbItem>

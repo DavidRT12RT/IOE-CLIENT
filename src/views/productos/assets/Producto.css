@@ -4,33 +4,21 @@
     width: 100%;
     height: 100%;
 
-    padding:30px;
-
     display: flex;
     flex-direction: column;
     align-items: center;
     gap:20px;
+
+    padding:40px 0px;
+
 }
 
 .productoImages{
 }
 
 .productoFirtsContent{
-    width: 70vw;
-    height: fit-content;
-
-    display: flex;  
-    justify-content: space-between;
-    align-items:center;
-
-    /* border:1px solid black; */
-
+    width:90%;
 }
-
-.productoFirtsContent > *{
-    /* border:1px solid blue; */
-}
-
 
 .productoBasicInformation{
     display: flex;
@@ -39,6 +27,33 @@
     flex-direction: column;
 }
 
+/* Segundo contenido */
 .productoSecondContent{
-    width: 70vw;
+    width: 80%;
+    height: 100%;
+}
+
+.productoMoreInformationLeftSide{
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+}
+
+@media (min-width:100px) and (max-width:1000px) {
+
+    .productoContainer {
+        padding:0px;
+    }
+
+    .productoFirtsContent{
+        width: 100%;
+    }
+
+    .productoSecondContent{
+        width: 100%;
+    }
+
 }
