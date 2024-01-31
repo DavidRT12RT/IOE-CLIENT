@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import PublicRoute from "./PublicRoute";
 import AuthRouter from "./AuthRouter";
-import Producto from "../views/productos/components/Producto";
+import Producto from "../views/productos/Producto";
 import AlmacenRouter from "./AlmacenRouter";
 import NavbarMenu from "../components/navbar/Navbar";
 import LeftMenu from "../components/leftMenu/LeftMenu";

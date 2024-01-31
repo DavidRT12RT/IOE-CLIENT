@@ -2,25 +2,119 @@
 .Inventarios{
     width: 100%;
     height: 100%;
-    display: grid; 
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr; 
-    grid-template-rows: 1fr 1fr 1fr; 
-    gap: 10px 20px; 
-    grid-template-areas: 
-        "LeftColumn LeftColumn InvtInfo InvtInfo InvtInfo"
-        "LeftColumn LeftColumn InvtInfo InvtInfo InvtInfo"
-        "LeftColumn LeftColumn InvtInfo InvtInfo InvtInfo"
-    ;
+    
+    padding:20px 0px;
 }
 
 
 .Inventarios .LeftColumn{
-    grid-area: LeftColumn;
+    display: flex;
+    flex-direction: column;
+    gap:30px;
 }
 
 .Inventarios .InvtInfo{
-    grid-area: InvtInfo;
-    /* background-color: var(--main-background-color); */
-    padding:50px;
+    height: 95%;
+
+    padding:50px 60px;
+    background-color: var(--color-bkg);
+    border-radius: 20px;
 }
 
+.Inventarios .invtInfoNotSelected {
+
+    width: 100%;
+    height: 95%;
+
+    background-color: var(--color-bkg);
+    border-radius: 20px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+}
+
+.invtCardsContainer{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap:20px;
+}
+.pagination {
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+}
+
+/* Inventario Card */
+.invtCardContainer{
+    width: 100%;
+
+    border-radius: 20px;
+    padding: 30px;
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap:10px; 
+
+    background-color:var(--color-bkg);
+
+    /* Transicion para evento hover */
+    transition: background-color 0.3s, color 0.3s;
+
+    cursor: pointer;
+}
+
+.invtCardContainer:hover{
+
+    background-color: var(--primary-color);
+    color:white;
+
+}
+
+.invtInfoArticulos{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap:20px;
+}
+
+/* Carta del detalle (producto con su cantidad contada) */
+.invtDetalleProductoContainer{
+    display: flex;
+    width: 100%;
+    height: fit-content;
+
+    border-radius: 20px;
+    padding: 30px;
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap:10px; 
+
+    cursor: pointer;
+    background-color:#ffff;
+}
+
+@media (min-width:100px) and (max-width:1000px){
+    .invtInfoNotSelected{
+        display: none;
+    }
+
+
+    .InvtInfo{
+        display: none;
+    }
+
+    .invtCardContainer {
+        padding:10px;
+    }
+}

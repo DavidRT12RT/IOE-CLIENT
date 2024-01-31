@@ -4,7 +4,7 @@ import { BreadcrumbItem, Breadcrumbs } from '@nextui-org/react';
 import LeftMenu from './components/leftMenu/LeftMenu';
 import NavbarMenu from './components/navbar/Navbar';
 import RegistrarProducto from './views/productos/RegistrarProducto';
-import Producto from './views/productos/components/Producto';
+import Producto from './views/productos/Producto';
 import Login from './views/auth/login/Login';
 import AppRouter from './routers/AppRouter';
 

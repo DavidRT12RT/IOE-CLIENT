@@ -7,7 +7,7 @@ export function useFetch(url:string){
     const [ data,setData ] = useState<null | any>(null);
     const [ isLoading,setIsLoading ] = useState(true);
     const [ error,setError ] = useState<null | string>(null);
-    const [controller,setController] = useState<any>(null);
+    const [ controller,setController ] = useState<any>(null);
 
     useEffect(() => {
 
@@ -38,7 +38,7 @@ export function useFetch(url:string){
         }
 
     }
-    
+
 
     return {
         data,

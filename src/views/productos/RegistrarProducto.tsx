@@ -60,7 +60,7 @@ export default function RegistrarProducto (){
     const { isOpen: isOpenModalRegistrar, onOpen: onOpenModalRegistrar,onClose:onCloseModalRegistrar } = useDisclosure();
 
     if(isLoadingCategorias || isLoadingAlmacenes || isLoadingProductos ) return <h1>Cargando...</h1>
-    if(errorAlmacenes || errorCategorias || errorProductos ) return message.error(`Categorias o almacenes no se pudieron extraer del servidor , contacta a un administrador!`);
+    if(errorAlmacenes || errorCategorias || errorProductos ) return <p>Categorias o almacenes no se pudieron extraer del servidor , contacta a un administrador!</p>;
     return (
         <section className="registerContainer">
             <Modal isOpen={isOpenModalRegistrar} onOpenChange={onOpenModalRegistrar} onClose={onCloseModalRegistrar}>

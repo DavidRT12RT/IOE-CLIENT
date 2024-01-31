@@ -1,9 +1,11 @@
-import { Accordion, AccordionItem, BreadcrumbItem, Breadcrumbs, Tab, Tabs } from "@nextui-org/react";
-import "../assets/Producto.css";
-import ProductoBasicInformation from "./Producto/ProductoBasicInformation";
-import ProductoImages from "./Producto/ProductoImages";
-import ProductoMoreInformationLeftSide from "./Producto/ProductoMoreInformationLeftSide";
-import ProductoMoreInformationRightSide from "./Producto/ProductoMoreInformationRightSide";
+
+//Component's
+import ProductoBasicInformation from "./components/Producto/ProductoBasicInformation";
+import ProductoImages from "./components/Producto/ProductoImages";
+import ProductoMoreInformationLeftSide from "./components/Producto/ProductoMoreInformationLeftSide";
+import ProductoMoreInformationRightSide from "./components/Producto/ProductoMoreInformationRightSide";
+
+import "./assets/Producto.css";
 
 export default function Producto() {
 
