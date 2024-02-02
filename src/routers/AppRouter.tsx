@@ -31,7 +31,7 @@ export default function AppRouter(){
                                 <Breadcrumbs>
                             	    <BreadcrumbItem>Home</BreadcrumbItem>
                 	                <BreadcrumbItem>Productos</BreadcrumbItem>
-                	                <BreadcrumbItem><p className="font-bold">406bd12a-08b1-4a02-b92d-5c395f259c3a</p></BreadcrumbItem>
+                	                <BreadcrumbItem><p className="font-bold">405bd12a-08b1-4a02-b92d-5c395f259c3a</p></BreadcrumbItem>
             	                </Breadcrumbs>
                                 <AlmacenRouter/>
 				                </div>

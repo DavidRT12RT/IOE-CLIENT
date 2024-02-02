@@ -1,11 +1,14 @@
-import { Button, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger, Input } from "@nextui-org/react";
-//Icons
-import { SearchIcon } from "../icons/SearchIcon";
-import { PlusIcon } from "../icons/PlusIcon";
-import useInventarios from "../hooks/useInventarios";
-import { capitalize } from "../../../utils";
+import { Button,Input } from "@nextui-org/react";
+import { Link } from "react-router-dom";
+
+//Component's
 import DropdownStatusInvt from "./DropdownStatusInvt";
 import DropdownCategorias from "./DropdownCategoriasInvt";
+
+//Icon's
+import { CiSearch } from "react-icons/ci";
+import { IoMdAdd } from "react-icons/io";
+
 
 interface InvtFinderProps {
     filterValue:any;
@@ -19,7 +22,7 @@ export const InvtFinder  = ({filterValue,setFilterValue}:InvtFinderProps) => {
             <Input
                 isClearable
                 placeholder="Busca por nombre del inventario"
-                startContent={<SearchIcon/>}
+                startContent={<CiSearch/>}
                 value={filterValue}
                 onClear={() => setFilterValue("")}
                 onValueChange={setFilterValue}
@@ -27,7 +30,7 @@ export const InvtFinder  = ({filterValue,setFilterValue}:InvtFinderProps) => {
             <div className="flex gap-3">
                 <DropdownStatusInvt/>
                 <DropdownCategorias/>
-                <Button color="primary" endContent={<PlusIcon />}>Crear nuevo</Button>
+                <Link to={'/almacen/inventarios/registrar'}><Button color="primary" endContent={<IoMdAdd />}>Crear nuevo</Button></Link>
             </div>
         </div>
     );

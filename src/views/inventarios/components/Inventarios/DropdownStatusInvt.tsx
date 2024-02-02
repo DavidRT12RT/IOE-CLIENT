@@ -1,9 +1,10 @@
 import { Button, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from "@nextui-org/react";
-import { ChevronDownIcon } from "../icons/ChevronDownicon";
 
-import { capitalize } from "../../../utils";
+import { capitalize } from "../../../../utils";
 
-import useInventarios from "../hooks/useInventarios";
+import useInventarios from "../../hooks/useInventarios";
+
+import { FaChevronDown } from "react-icons/fa";
 
 export default function DropdownStatusInvt(){
 
@@ -17,7 +18,7 @@ export default function DropdownStatusInvt(){
     return (
         <Dropdown>
              <DropdownTrigger className="sm:flex">
-                <Button endContent={<ChevronDownIcon className="text-small" />} variant="flat">Estatus</Button>
+                <Button endContent={<FaChevronDown className="text-small" />} variant="flat">Estatus</Button>
             </DropdownTrigger>
             <DropdownMenu
                     aria-label="Status options"

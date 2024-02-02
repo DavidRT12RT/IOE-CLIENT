@@ -1,6 +1,6 @@
 //Custom hook to implement logic
 import { Pagination } from "@nextui-org/react";
-import useInventarios from "../hooks/useInventarios";
+import useInventarios from "../../hooks/useInventarios";
 
 import InvtCard from "./InvtCard";
 

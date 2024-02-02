@@ -63,7 +63,11 @@ export default function RegistrarProducto (){
     if(errorAlmacenes || errorCategorias || errorProductos ) return <p>Categorias o almacenes no se pudieron extraer del servidor , contacta a un administrador!</p>;
     return (
         <section className="registerContainer">
-            <Modal isOpen={isOpenModalRegistrar} onOpenChange={onOpenModalRegistrar} onClose={onCloseModalRegistrar}>
+            <Modal 
+                isOpen={isOpenModalRegistrar} 
+                onOpenChange={onOpenModalRegistrar} 
+                onClose={onCloseModalRegistrar}
+            >
                 <ModalContent>
                     {(onClose) => (
                         <>
@@ -80,7 +84,7 @@ export default function RegistrarProducto (){
                     )}
                 </ModalContent>
             </Modal>
-            <h1 className="font-extrabold text-3xl lg:text-6xl font-playfair">Registrar un producto</h1>
+            <h1 className="font-extrabold text-2xl lg:text-5xl">Registrar un producto</h1>
             <p className="text-gray-500">Llenar los siguientes datos para registrar un nuevo producto a almacen.</p>
             <Steps current={current} items={steps}/>
             <div className="registerContent">{steps[current].content}</div>

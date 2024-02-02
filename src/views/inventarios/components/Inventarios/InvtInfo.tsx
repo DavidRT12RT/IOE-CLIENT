@@ -1,4 +1,4 @@
-import { Avatar, Button, Chip } from "@nextui-org/react";
+import { Avatar, Chip } from "@nextui-org/react";
 
 //Icons
 import { FaFileAlt } from "react-icons/fa";
@@ -6,14 +6,15 @@ import { GoDotFill } from "react-icons/go";
 
 //Components
 import { InvtArticulos } from "./InvtArticulos";
-import useInventarios from "../hooks/useInventarios";
+
 import moment from "moment";
 
 interface InvtInfoProps{
     inventario:any;
 }
 import 'moment/locale/es';
-import { capitalize } from "../../../utils";
+import { capitalize } from "../../../../utils";
+import { Link } from "react-router-dom";
 
 
 export const InvtInfo = ({inventario}:InvtInfoProps) => {
@@ -25,7 +26,9 @@ export const InvtInfo = ({inventario}:InvtInfoProps) => {
             <div className="flex justify-between">
                 {/* BASIC INFORMATION */}
                 <div className="flex flex-col gap-2">
-                    <h1 className="text-4xl font-extrabold">{inventario.nombre_inventario}</h1>
+                    <Link className="text-4xl font-extrabold" target="_blank" to={`/almacen/inventarios/${inventario.id}`}>
+                        {inventario.nombre_inventario}
+                    </Link>
                     <p className="text-gray-500">{inventario.id}</p>
                     <div className="flex gap-2">
                         <Chip

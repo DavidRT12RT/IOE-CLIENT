@@ -1,13 +1,15 @@
 //Components
-import { InvtFinder } from "./components/InvtFinder";
-import { InvtResults } from "./components/InvtResults";
-import { InvtInfo } from "./components/InvtInfo";
+import { InvtFinder } from "./components/Inventarios/InvtFinder";
+import { InvtResults } from "./components/Inventarios/InvtResults";
+import InvtInfo from "./components/Inventario/InvtInfo";
 
 //Custom hook to handle the logic 
 import useInventarios from "./hooks/useInventarios";
 
 //Style CSS
-import "./assets/style.css";
+import "./assets/Inventarios.css";
+
+import logo from "../../assets/images/LogoGrupoIOE-ColorPrincipal-Sinfondo_500px.png";
 
 const Inventarios = () => {
 
@@ -25,12 +27,23 @@ const Inventarios = () => {
     return (
         <section className="Inventarios text-sm md:text-base grid grid-cols-1 md:grid-cols-5 gap-5">
             <div className="LeftColumn col-span-5 md:col-span-2">
-                <h1 className="text-5xl lg:text-6xl font-extrabold font-playfair">Inventarios</h1>
+                <h1 className="text-5xl lg:text-6xl font-extrabold">Inventarios</h1>
                 <InvtFinder filterValue={filterValue} setFilterValue={setFilterValue}/>
                 <InvtResults isLoadingInventarios={isLoadingInventarios} filteredInventarios={filteredInventarios} handleChangeInventarioSelected={handleChangeInventarioSelected}/>
             </div>
             {
-                inventarioSelected === null ? (<div className= "invtInfoNotSelected col-span-0 md:col-span-3"><p className="">Seleciona un inventario para ver una previsualizacion de su informacion</p> </div> ) : <InvtInfo inventario={inventarioSelected}/>
+                inventarioSelected === null 
+                ? 
+                    <div className= "invtInfoNotSelected col-span-0 md:col-span-3">
+                        <img src={logo}/>
+                        <h2 className="text-2xl font-bold">Seleciona un inventario</h2> 
+                        <p className="">Seleciona un inventario para ver la previsualizacion de la informacion y editarlo.</p>
+                    </div>  
+                : 
+                    // <InvtInfo inventario={inventarioSelected}/>
+                    <div className="col-span-0 md:col-span-3">
+                        <InvtInfo inventario={inventarioSelected}/>
+                    </div>
             }
         </section>
     );

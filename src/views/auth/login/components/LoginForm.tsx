@@ -10,7 +10,7 @@ export default function LoginForm(){
                 <img src={grupoIOELogo} style={{height:40}}/>
             </div>
             <div>
-                <h1 className="text-3xl lg:text-6xl font-extrabold font-playfair">Bienvenido de vuelta</h1>
+                <h1 className="text-3xl lg:text-6xl font-extrabold">Bienvenido de vuelta</h1>
                 <p className="text-gray-500">Ingresa tu correo y contrasena para acceder a tu cuenta</p>
             </div>
             <Input

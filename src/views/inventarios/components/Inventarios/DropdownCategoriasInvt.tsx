@@ -1,7 +1,6 @@
 import { Button, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from "@nextui-org/react";
-import { ChevronDownIcon } from "../icons/ChevronDownicon";
-import { capitalize } from "../../../utils";
-import useInventarios from "../hooks/useInventarios";
+import { FaChevronDown } from "react-icons/fa";
+import useInventarios from "../../hooks/useInventarios";
 
 export default function DropdownCategorias(){
 
@@ -22,7 +21,7 @@ export default function DropdownCategorias(){
     return (
         <Dropdown>
              <DropdownTrigger className="sm:flex">
-                <Button endContent={<ChevronDownIcon className="text-small" />} variant="flat">Categorias</Button>
+                <Button endContent={<FaChevronDown  className="text-small" />} variant="flat">Categorias</Button>
             </DropdownTrigger>
             <DropdownMenu
                     aria-label="Categorias options"

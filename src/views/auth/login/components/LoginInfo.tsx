@@ -48,7 +48,7 @@ export default function LoginInfo(){
                 <div className="blackScreen"/>
                 <div className="loginImageContent text-white ">
                     {/* <h1 className="text-5xl font-bold">{tabsContent[tabActive].title}</h1> */}
-                    <h1 className="text-6xl font-playfair">Get <br/>Everything<br/> You Want</h1>
+                    <h1 className="text-6xl">Get <br/>Everything<br/> You Want</h1>
                     {/* <p className="text-white text-sm">{tabsContent[tabActive].content}</p> */}
                     <p className="text-white text-sm">You can get everything you want if you work hard.</p>
                     <p className="text-white text-sm">trust the process, and stick to the plan.</p>
