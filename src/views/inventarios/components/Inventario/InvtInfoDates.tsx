@@ -3,7 +3,7 @@ import { FaFileAlt } from "react-icons/fa";
 
 export default function InvtInfoDates({inventario}:any){
     return (                    
-        <div className="mt-4 flex items-center" style={{gap:35}}>
+        <div className="mt-4 flex items-center" style={{gap:15}}>
             <div className="flex gap-3 items-center bg-white p-3 rounded-lg">
                 <FaFileAlt className="text-gray-500 text-xl"/>
                 <div className="info">

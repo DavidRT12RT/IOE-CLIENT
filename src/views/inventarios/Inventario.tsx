@@ -10,7 +10,6 @@ import "./assets/Inventario.css";
 
 export default function Inventario(){
 
-
     const {
         inventario,
         isLoadingInventario,

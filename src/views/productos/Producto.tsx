@@ -18,7 +18,7 @@ export default function Producto() {
                     <ProductoBasicInformation/>
                 </div>
 
-                <div className="productoSecondContent grid grid-cols-1 md:grid-cols-2 gap-20 mt-20 place-items-center">
+                <div className="productoSecondContent grid grid-cols-1 md:grid-cols-2 gap-20 mt-20">
                     <ProductoMoreInformationLeftSide/>
                     <ProductoMoreInformationRightSide/>
                 </div>
