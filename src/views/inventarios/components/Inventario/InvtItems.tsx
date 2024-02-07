@@ -34,31 +34,41 @@ export default function InvtItems({
     return (
 
         <div className="InvtItems">
-            <div className="flex flex-wrap items-center justify-between">
-                <h1 className="font-extrabold text-3xl lg:text-5xl">{inventario.nombre_inventario}</h1>
-                    {
-                        isEditing 
-                            ? 
-                            <div className="flex gap-2 align-center">
-                                <Button color="primary" onClick={() => setIsEditing(false)}>Salir</Button>
-                                <Button color="danger" onClick={() => console.log("Editing...")}>Guardar cambios</Button>
-                            </div>
-                            :
-                            <div className="flex gap-2">
-                                <Button color="primary">Generar reporte</Button>
-                                <Button color="danger" onClick={() => setIsEditing(true)}>Editar</Button>
-                            </div>
-                    }
-                    <Input
-                        size="md"
-                        className="font-extrabold text-4xl mt-5"
-                        startContent={
-                            <p className="font-extrabold"><CiSearch /></p>
-                        }
-                        isClearable
-                        placeholder="Buscar producto por su nombre"
-                    />
-            </div>
+            <div className="flex items-center justify-between gap-5">
+                {
+                    isEditing 
+                        ? 
+                        <input
+                            defaultValue={inventario.nombre_inventario}
+                            className="font-extrabold text-3xl lg:text-5xl w-full"
+                            style={{padding:"0px",margin:"0px"}}
+                        />
+                        : <h1 className="font-extrabold text-3xl lg:text-5xl">{inventario.nombre_inventario}</h1>
+                }
+                {
+                    isEditing 
+                        ? 
+                        <div className="flex gap-2 align-center">
+                            <Button color="primary" onClick={() => setIsEditing(false)}>Salir</Button>
+                            <Button color="danger" onClick={() => console.log("Editing...")}>Guardar cambios</Button>
+                        </div>
+                        :
+                        <div className="flex gap-2">
+                            <Button color="primary">Generar reporte</Button>
+                            <Button color="danger" onClick={() => setIsEditing(true)}>Editar</Button>
+                        </div>
+                }                    
+
+            </div>                
+            <Input
+                size="md"
+                className="font-extrabold text-4xl mt-5"
+                startContent={
+                    <p className="font-extrabold"><CiSearch /></p>
+                }
+                isClearable
+                placeholder="Buscar producto por su nombre"
+            />
             <div>
                 <Table
                     
