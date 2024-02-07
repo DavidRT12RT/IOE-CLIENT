@@ -1,15 +1,17 @@
 import React, { memo, useMemo, useState } from "react";
-import { Checkbox, Input, Modal, ModalBody, ModalContent, ModalHeader, useDisclosure } from "@nextui-org/react";
+import { Checkbox, Input, Modal, ModalBody, ModalContent, ModalHeader, Select, SelectItem, SelectSection, useDisclosure } from "@nextui-org/react";
 import { CiSearch } from "react-icons/ci";
 import { IoIosArrowForward } from "react-icons/io";
-import { useRegistrarProducto } from "../../hooks/useRegistrarProducto";
 
 
 
 interface InformacionDetalladaPros {
+    values:any;
+    setValues:any;
     categorias: any;
-    almacenes: any;
     productos:any;
+    sucursales:any;
+    almacenes:any;
 }
 
 interface ModalResultsProps {
@@ -60,6 +62,7 @@ const ModalResults = memo(({
         <Modal
             size="lg"
             isOpen={isOpenModal}
+            onClose={onClose}
             onOpenChange={onOpenChangeModal}
             hideCloseButton
             isDismissable
@@ -67,7 +70,7 @@ const ModalResults = memo(({
             scrollBehavior="inside"
         >
             <ModalContent>
-                {(onClose) => (
+                {() => (
                     <>
                         <ModalHeader style={{ padding: -1 }}>
                             <Input
@@ -108,18 +111,19 @@ const ModalResults = memo(({
 });
 
 
-export default function InformacionDetallada({categorias,almacenes,productos}:InformacionDetalladaPros){
+export default function InformacionDetallada({
+    values,
+    setValues,
+    categorias,
+    sucursales,
+    // productos
+}:InformacionDetalladaPros){
 
 
     const { isOpen: isOpenModalCategorias, onOpen: onOpenModalCategorias,onClose:onCloseCategorias } = useDisclosure();
-    const { isOpen: isOpenModalAlmacenes, onOpen: onOpenModalAlmacenes,onClose:onCloseAlmacenes } = useDisclosure();
-    const { isOpen: isOpenModalProductos, onOpen: onOpenModalProductos,onClose:onCloseProductos } = useDisclosure();
-
+    // const { isOpen: isOpenModalProductos, onOpen: onOpenModalProductos,onClose:onCloseProductos } = useDisclosure();
     const [filterValue, setFilterValue] = useState<string>("");
-    const { values,handleChange,setValues } = useRegistrarProducto();
-
     const hasSearchFilter = Boolean(filterValue);
-
     const filteredCategorias = useMemo(() => {
 
         let filteredCategorias = [...categorias];
@@ -128,22 +132,14 @@ export default function InformacionDetallada({categorias,almacenes,productos}:In
 
     }, [filterValue,categorias]);
 
-    const filteredAlmacenes = useMemo(() => {
 
-        let filteredAlmacenes = [...almacenes];
-        if(hasSearchFilter) filteredAlmacenes = filteredAlmacenes.filter(almacen => almacen.nombre.toLowerCase().includes(filterValue.toLowerCase()));
-        return filteredAlmacenes;
+    // const filteredProductos = useMemo(() => {
 
-    },[filterValue,almacenes]);
+    //     let filteredProductos = [...productos];
+    //     if(hasSearchFilter) filteredProductos = filteredProductos.filter(almacen => almacen.nombre.toLowerCase().includes(filterValue.toLowerCase()));
+    //     return filteredProductos;
 
-    const filteredProductos = useMemo(() => {
-
-        let filteredProductos = [...productos];
-        if(hasSearchFilter) filteredProductos = filteredProductos.filter(almacen => almacen.nombre.toLowerCase().includes(filterValue.toLowerCase()));
-        return filteredProductos;
-
-    },[filterValue,productos]);
-
+    // },[filterValue,productos]);
 
     return (
         <>
@@ -157,17 +153,7 @@ export default function InformacionDetallada({categorias,almacenes,productos}:In
                 setValues={setValues}
                 type="categoria"
             />
-            <ModalResults
-                isOpenModal={isOpenModalAlmacenes}
-                onOpenChangeModal={onOpenModalAlmacenes}
-                onClose={onCloseAlmacenes}
-                filterValue={filterValue}
-                setFilterValue={setFilterValue}
-                filteredResults={filteredAlmacenes}
-                setValues={setValues}
-                type="almacen"
-            />
-            <ModalResults
+            {/* <ModalResults
                 isOpenModal={isOpenModalProductos}
                 onOpenChangeModal={onOpenModalProductos}
                 onClose={onCloseProductos}
@@ -176,32 +162,51 @@ export default function InformacionDetallada({categorias,almacenes,productos}:In
                 filteredResults={filteredProductos}
                 setValues={setValues}
                 type="producto_padre"
-            />
+            /> */}
             <Input
                 isRequired
                 size="md"
                 name="categoria"
                 label="Categoria"
                 onClick={() => onOpenModalCategorias()}
-                value={values.categoria.nombre.length > 1 ? values.categoria?.nombre : ""}
+                value={values.categoria?.nombre}
                 contentEditable={false}
             />
-            <Input
-                isRequired
-                size="md"
-                name="almacen"
-                label="Almacen"
-                value={values.almacen.nombre.length > 1 ? values.almacen?.nombre : ""}
-                onClick={() => onOpenModalAlmacenes()}
-            />
+             <Select
+                label="Almacenes de las sucursales"
+                placeholder="Selecciona una o varios almacenes donde estara el producto"
+                selectionMode="multiple"
+                selectedKeys={values.almacenes}
+                //@ts-ignore
+                onSelectionChange={(e) => setValues((values) => ({...values,almacenes:[...Array.from(e)]}))}
+            >
+                {
+                    sucursales.map((sucursal:any) => (
+                        <SelectSection key={sucursal.id} showDivider title={`${sucursal.ciudad} ${sucursal.calle}`}>
+                            {
+                                sucursal.almacenes.map((almacen:any) => (
+                                    <SelectItem 
+                                        key={almacen.id} 
+                                        value={almacen.id} 
+                                        textValue={`${almacen.nombre} ${almacen.descripcion}`}
+                                    >
+                                        {almacen.nombre} {almacen.descripcion}
+
+                                    </SelectItem>
+                                ))
+                            }
+                        </SelectSection>
+                    ))
+                }
+            </Select>
             <Checkbox 
                 type="primary"
-                checked={values.inventariable} 
-                onChange={(e) => setValues(values => ({...values,inventariable:!values.inventariable}))}
+                isSelected={values.inventariable}
+                onChange={() => setValues((values:any) => ({...values,inventariable:!values.inventariable}))}
             >
                 Inventariable
             </Checkbox>
-            <Checkbox 
+            {/* <Checkbox 
                 type="primary"
                 checked={values.es_producto_padre} 
                 onChange={(e) => setValues(values => ({...values,es_producto_padre:!values.es_producto_padre}))}
@@ -239,7 +244,7 @@ export default function InformacionDetallada({categorias,almacenes,productos}:In
                     contentEditable={false}
                     description="El producto padre que tiene el producto que estas registrando actualmente"
                 />
-            )}
+            )} */}
         </>
     );
 }

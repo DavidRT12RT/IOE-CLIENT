@@ -1,9 +1,13 @@
 import { Input, Textarea } from "@nextui-org/react";
-import { useRegistrarProducto } from "../../hooks/useRegistrarProducto";
 
-export default function InformacionBasica(){
 
-    const { values,handleChange } = useRegistrarProducto();
+interface InformacionBasicaProps{
+    values:any;
+    handleChange:any;
+};
+
+export default function InformacionBasica({values,handleChange}:InformacionBasicaProps){
+
 
     return (
         <>
@@ -25,16 +29,6 @@ export default function InformacionBasica(){
                 label="Descripcion"
                 description="Descripcion acerca del producto"
                 value={values.descripcion}
-                onChange={handleChange}
-            />
-            <Input 
-                isRequired
-                // variant="bordered"
-                size="md"
-                type="number"
-                name="stock"
-                label="Stock"
-                value={values.stock}
                 onChange={handleChange}
             />
             <Input 

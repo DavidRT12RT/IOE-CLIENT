@@ -1,5 +1,5 @@
 import { Button, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, useDisclosure } from "@nextui-org/react";
-import { Steps, message } from "antd";
+import { Steps } from "antd";
 
 //Custom hook
 import { useRegistrarProducto } from "./hooks/useRegistrarProducto";
@@ -7,7 +7,7 @@ import { useRegistrarProducto } from "./hooks/useRegistrarProducto";
 //Component's
 import InformacionBasica from "./components/RegistrarProducto/InformacionBasica";
 import InformacionDetallada from "./components/RegistrarProducto/InformacionDetallada";
-import Archivos from "./components/RegistrarProducto/Archivos";
+// import Archivos from "./components/RegistrarProducto/Archivos";
 
 import "./assets/RegistrarProducto.css";
 
@@ -15,6 +15,8 @@ export default function RegistrarProducto (){
 
     const {
         values,
+        setValues,
+        handleChange,
         current,
         next,
         prev,
@@ -22,6 +24,9 @@ export default function RegistrarProducto (){
         dataCategorias,
         dataAlmacenes,
         dataProductos,
+        dataSucursales,
+
+        // isLoadingSucursales,
         isLoadingAlmacenes,
         isLoadingCategorias,
         isLoadingProductos,
@@ -37,24 +42,35 @@ export default function RegistrarProducto (){
     const steps = [
         {
             title:"Informacion basica del producto",
-            content:<InformacionBasica/>,
+            content:<InformacionBasica
+                values={values}
+                handleChange={handleChange}
+            />,
             id:1
         },
         {
             title:"Informacion detallada del producto",
-            content:<InformacionDetallada categorias={dataCategorias?.categorias} almacenes={dataAlmacenes?.almacenes} productos={dataProductos?.productos}/>,
+            content:
+            <InformacionDetallada 
+                values={values}
+                setValues={setValues}
+                almacenes={dataAlmacenes?.almacenes}
+                categorias={dataCategorias?.categorias} 
+                sucursales={dataSucursales?.sucursales}
+                productos={dataProductos?.productos}
+            />,
             id:2
         },
-        {
-            title:"Fotos del producto",
-            content:<Archivos/>,
-            id:3
-        },
-        {
-            title:"Resumen",
-            // content:<Archivos/>,
-            id:4
-        },
+        // {
+        //     title:"Fotos del producto",
+        //     content:<Archivos/>,
+        //     id:3
+        // },
+        // {
+        //     title:"Resumen",
+        //     // content:<Archivos/>,
+        //     id:4
+        // },
     ];
 
     const { isOpen: isOpenModalRegistrar, onOpen: onOpenModalRegistrar,onClose:onCloseModalRegistrar } = useDisclosure();
