@@ -10,6 +10,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useProducto } from "./hooks/useProducto";
 
 import "./assets/Producto.css";
+import { Button } from "@nextui-org/react";
 
 export default function Producto() {
 
@@ -20,26 +21,52 @@ export default function Producto() {
     const {
         producto,
         isLoadingDataProducto,
-        errorDataProducto
+        errorDataProducto,
+
+        isEditing,
+        setIsEditing
     } = useProducto(id);
 
 
-    console.log(producto);
     if(isLoadingDataProducto) return <h1>Cargando informacion del producto...</h1>
     if(errorDataProducto) return navigate(-1);
 
     return (
         <>
             <section className="productoContainer">
-
+                {isEditing 
+                    ? 
+                    <div className="flex items-center gap-3" style={{alignSelf:"flex-end"}}>
+                        <Button 
+                            color="primary" 
+                            onClick={() => setIsEditing(!isEditing)}
+                        >
+                            Salir de editar
+                        </Button>
+                        <Button
+                            color="danger"
+                        >
+                            Guardar cambios
+                        </Button>
+                    </div> 
+                    : 
+                    <div style={{alignSelf:"flex-end"}}>
+                        <Button 
+                            color="primary" 
+                            onClick={() => setIsEditing(!isEditing)}
+                        >
+                            Editar
+                        </Button>
+                    </div>
+                }
                 <div className="productoFirtsContent  grid grid-cols-1 md:grid-cols-2 gap-20 place-items-center">
                     <ProductoImages/>
-                    <ProductoBasicInformation producto={producto}/>
+                    <ProductoBasicInformation producto={producto} isEditing={isEditing}/>
                 </div>
 
                 <div className="productoSecondContent grid grid-cols-1 md:grid-cols-2 gap-20 mt-20">
-                    <ProductoMoreInformationLeftSide/>
-                    <ProductoMoreInformationRightSide/>
+                    <ProductoMoreInformationLeftSide producto={producto}/>
+                    <ProductoMoreInformationRightSide producto={producto}/>
                 </div>
 
             </section>

@@ -1,15 +1,15 @@
 import { Accordion, AccordionItem } from "@nextui-org/react";
 
-export default function ProductoMoreInformationRightSide(){
+export default function ProductoMoreInformationRightSide({producto}:any){
     return (
         <div className="productoMoreInformationRightSide">
          <hr/>
         <Accordion defaultExpandedKeys={["1"]}>
-            <AccordionItem key="1" aria-label="Carta Tecnica" title={<p className="font-bold text-2xl">Descripcion del producto</p>}>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius porro quasi nobis qui ab incidunt quas atque eligendi reprehenderit saepe distinctio doloremque expedita ducimus nulla, repellendus odio sed sint deserunt?
+            <AccordionItem key="1" aria-label="Descripcion" title={<p className="font-bold text-2xl">Descripcion del producto</p>}>
+                {producto.descripcion}
             </AccordionItem>
-            <AccordionItem key="2" aria-label="Hoja de seguridad" title={<p className="font-bold text-2xl">Usos del producto</p>}>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+            <AccordionItem key="2" aria-label="Usos" title={<p className="font-bold text-2xl">Usos del producto</p>}>
+                {producto.usos.length >= 1 ? producto.usos : "Ningun uso del producto fue registrado..."}
             </AccordionItem>
         </Accordion>
         </div>
