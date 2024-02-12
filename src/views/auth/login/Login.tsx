@@ -1,5 +1,3 @@
-import { Button, Checkbox, Input } from "@nextui-org/react";
-
 import LoginInfo from "./components/LoginInfo";
 import LoginForm from "./components/LoginForm";
 

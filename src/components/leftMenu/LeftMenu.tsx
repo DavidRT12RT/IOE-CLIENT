@@ -5,9 +5,17 @@ import { MdOutlineInventory } from "react-icons/md";
 import { IoIosArrowForward } from "react-icons/io";
 
 import "./assets/style.css";
+import { useDispatch } from "react-redux";
+import { logout } from "../../redux/authSlice";
 
 
 export default function LeftMenu() {
+
+    const dispatch = useDispatch();
+
+    const handleLogout = () => {
+        dispatch(logout());
+    }
 
     return (
         <nav className="LeftMenu">
@@ -33,7 +41,7 @@ export default function LeftMenu() {
                             <p className="font-semibold">zoey@example.com</p>
                         </DropdownItem>
                         <DropdownItem key="settings">Configuraciones</DropdownItem>
-                        <DropdownItem key="analytics">Cerrar seccion</DropdownItem>
+                        <DropdownItem key="analytics" onClick={handleLogout}>Cerrar seccion</DropdownItem>
                     </DropdownMenu>
                 </Dropdown>
                 <p className="icon"><IoIosArrowForward/></p>

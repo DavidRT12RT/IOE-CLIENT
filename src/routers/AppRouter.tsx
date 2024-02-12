@@ -1,17 +1,37 @@
+import { BreadcrumbItem, Breadcrumbs } from "@nextui-org/react";
+import LeftMenu from "../components/leftMenu/LeftMenu";
+
+//Routes
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import AlmacenRouter from "./AlmacenRouter";
 import PublicRoute from "./PublicRoute";
 import AuthRouter from "./AuthRouter";
-import Producto from "../views/productos/Producto";
-import AlmacenRouter from "./AlmacenRouter";
-import NavbarMenu from "../components/navbar/Navbar";
-import LeftMenu from "../components/leftMenu/LeftMenu";
-import { BreadcrumbItem, Breadcrumbs } from "@nextui-org/react";
+import PrivateRoute from "./PrivateRoute";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { startChecking } from "../redux/thunks";
+import { RootState } from "../redux/store";
 
 export default function AppRouter(){
+
+	const dispatch = useDispatch();
+
+	useEffect(() => {
+		// @ts-ignore
+		dispatch(startChecking());
+	},[dispatch]);
+
+    const auth = useSelector((store:RootState) => store.auth);
+
+
+    if(auth.status == "checking") {
+        return <h1>Comprobando token...</h1>
+    } 
 
     return (
         <BrowserRouter>
             <Routes>
+
                 <Route 
                     path="/auth/*"
                     element={
@@ -24,7 +44,7 @@ export default function AppRouter(){
                 <Route 
                     path="/almacen/*"
                     element={
-                        <PublicRoute>
+                        <PrivateRoute>
 			                <main className="MainContainer">
 				                <LeftMenu/>
 				                <div className="MainContent">
@@ -36,11 +56,11 @@ export default function AppRouter(){
                                 <AlmacenRouter/>
 				                </div>
 			                </main>
-                        </PublicRoute>
+                        </PrivateRoute>
                     }
                 />
+
             </Routes>
         </BrowserRouter>
     );
-
 }
