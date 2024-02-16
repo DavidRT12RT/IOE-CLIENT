@@ -43,10 +43,8 @@ export const startChecking = () => {
             //peticion de revalidacion
             const resp = await fetchAdapter(`auth/renew`,undefined,"POST");
             const body = await resp.json();
-            if(resp.status !== 201) {
-                return dispatch(logout());
-            }
 
+            if(resp.status !== 201) return dispatch(logout());
             dispatch(login({...body,rememberMe:true}));
             
         } catch (error) {

@@ -1,35 +1,77 @@
-import { useMemo } from "react";
-import { Avatar, Button, Chip, Input, Pagination, Table, TableBody, TableCell, TableColumn, TableHeader, TableRow } from "@nextui-org/react";
+import { ChangeEvent, useMemo, useState } from "react";
+import { Avatar, Button, Chip, Input, Pagination, Select, SelectItem, Table, TableBody, TableCell, TableColumn, TableHeader, TableRow } from "@nextui-org/react";
 import { Link } from "react-router-dom";
 import moment from "moment";
 
 import { CiSearch } from "react-icons/ci";
-import { TbDotsVertical } from "react-icons/tb";
+import { Almacen, Detalle, Inventario, Producto } from "../../interfaces/Inventario";
 
 
 export default function InvtItems({
     inventario,
     isEditing,
-    setIsEditing
-}:any){
+    setIsEditing,
+    
+    almacenesSelected,
+    handleChangeAlmacen
+}:{
+    inventario:Inventario,
+    isEditing:boolean,
+    setIsEditing:any,
+    almacenesSelected:any;
+    handleChangeAlmacen:any;
+}){
+
+    const filteredDetalles = useMemo(() => {
+
+        let filteredDetalles = [...inventario.detalles];
+
+        filteredDetalles = filteredDetalles.filter(detalle => {
+            // Verificar si alguno de los almacenes del detalle está en almacenesSelected
+            return detalle.almacenes.some(almacen => almacenesSelected.includes(almacen.almacenId));
+        });
+
+        return filteredDetalles;
+
+    },[inventario]);
+
+    console.log(filteredDetalles);
+
 
     const topContent = useMemo(() => {
         return (
             <div className="flex justify-between items-center">
                 <span className="text-default-400 text-small">Total {inventario.detalles.length} productos</span>
-                <label className="flex items-center text-default-400 text-small">
-                    Filas por pagina
-                    <select
-                        className="bg-transparent outline-none text-default-400 text-small"
-                    >
-                        <option value="5">5</option>
-                        <option value="10">10</option>
-                        <option value="15">15</option>
-                    </select>
-                </label>
+                <div className="flex items-center gap-5">
+                    <label className="flex items-center text-default-400 text-small">
+                        Filas 
+                        <select
+                            className="bg-transparent outline-none text-default-400 text-small"
+                        >
+                            <option value="5">5</option>
+                            <option value="10">10</option>
+                            <option value="15">15</option>
+                        </select>
+                    </label>
+                    <label className="flex items-center text-default-400 text-small">
+                        Almacen
+                        <select
+                            className="bg-transparent outline-none text-default-400 text-small"
+                            style={{zIndex:"1000px"}}
+                            value={almacenesSelected}
+                            onChange={handleChangeAlmacen}
+                            id="almacen"
+                        >
+                            {inventario.sucursal.almacenes.map((almacen:any) => (
+                                <option value={almacen.id} key={almacen.id}>{almacen.nombre}</option>
+                            ))}
+                        </select>
+                    </label>
+                </div>
+
             </div>
         );
-    },[]);
+    },[almacenesSelected]);
 
     return (
 
@@ -55,7 +97,7 @@ export default function InvtItems({
                         :
                         <div className="flex gap-2">
                             <Button color="primary">Generar reporte</Button>
-                            <Button color="danger" onClick={() => setIsEditing(true)}>Editar</Button>
+                            <Button color="danger" onClick={() => setIsEditing(true)}>Capturar</Button>
                         </div>
                 }                    
 
@@ -91,60 +133,57 @@ export default function InvtItems({
                     }
                 >
                     <TableHeader>
-                        <TableColumn key={"nombre"}>NOMBRE</TableColumn>
+                        <TableColumn key={"nombre"}>NOMBRE PRODUCTO</TableColumn>
                         <TableColumn key={"categoria"}>CATEGORIA</TableColumn>
-                        <TableColumn key={"cantidad_contada"}>CANTIDAD CONTADA / FECHA ULT. ACTUALIZACION</TableColumn>
-                        <TableColumn key={"stock"}>STOCK ACTUAL / FECHA ULT. ACTUALIZACION</TableColumn>
-                        <TableColumn key={"acciones"}>ACCIONES</TableColumn>
+                        <TableColumn key={"cantidad_contada"}>CANTIDAD CONTADA / FECHA ULT. ACT.</TableColumn>
+                        <TableColumn key={"stock"}>STOCK ACTUAL / FECHA ULT. ACT.</TableColumn>
                     </TableHeader>    
-
                     <TableBody>
                         {
-                            inventario.detalles.map((detalle:any) => (
-                            <TableRow key={detalle.id} textValue={detalle.id}>
-                                <TableCell>                                                        
-                                    <Link target="_blank" className="flex items-center gap-3" to={`/almacen/producto/${detalle.producto.id}`}>
-                                        <Avatar src=""/>
-                                        <p className="font-bold">
-                                            {detalle.producto.nombre}
-                                        </p>
-                                    </Link>
-                                </TableCell>
-                                <TableCell>
-                                    <Chip color="primary" className="font-bold">
-                                        {detalle.producto.categoria.nombre}
-                                    </Chip>
-                                </TableCell>
-                                <TableCell>
-                                    {isEditing 
-                                        ? 
-                                        <Input
-                                            isRequired
-                                            size="md"
-                                            type="number"
-                                            name="cantidad_contada"
-                                            // label="Cantidad contada"
-                                            value={detalle.cantidad_contada}
-                                            onValueChange={(e) => console.log(e)}
-                                        /> 
-                                        :
-                                        <div className="flex flex-col items-center">
-                                            <p className="font-bold">{detalle.cantidad_contada}</p>
-                                            <p className="text-gray-500 text-small">{moment(detalle.fecha_actualizacion).format("MM/DD/YYYY HH:MM:SS")}</p>
-                                        </div>
-                                    } 
-                                </TableCell>
-                                <TableCell>
-                                    <div className="flex flex-col items-center">
-                                        <p className="font-bold">{detalle.producto.stock}</p>
-                                        <p className="text-gray-500 text-small">{moment(detalle.producto.fecha_actualizacion).format("MM/DD/YYYY HH:MM:SS")}</p>
-                                    </div>
-                                </TableCell>
-                                <TableCell className="flex justify-center">
-                                    <p className="font-bold text-2xl"><TbDotsVertical/></p>
-                                </TableCell>
-                            </TableRow>
-                            ))
+                            inventario.detalles.map((detalle:Detalle,index:number) => {
+
+                                const producto = inventario.productos.find((producto:Producto) => producto.id === detalle.productoId);
+
+                                return (
+                                    <TableRow key={index}>
+                                        <TableCell>                                                        
+                                            <Link target="_blank" className="flex items-center gap-3" to={`/almacen/productos/${detalle.productoId}`}>
+                                                <Avatar src=""/>
+                                                <p className="font-bold">
+                                                    {producto?.nombre}
+                                                </p>
+                                            </Link>
+                                        </TableCell>
+                                        <TableCell>
+                                            {/* {inventario.sucursal.almacenes.find((almacen:any) => almacen.id === almacenesSelected).nombre} */}
+                                            <Chip>{producto?.categoria.nombre}</Chip>
+                                        </TableCell>
+                                        <TableCell>
+                                            {isEditing 
+                                                ? 
+                                                <Input
+                                                    isRequired
+                                                    size="md"
+                                                    type="number"
+                                                    name="cantidad_contada"
+                                                    // label="Cantidad contada"
+                                                    // value={detalle.cantidad_contada}
+                                                    onValueChange={(e) => console.log(e)}
+                                                /> 
+                                                :
+                                                <div className="flex flex-col items-center">
+                                                    <p className="font-bold">{detalle.almacenes[0].cantidad_contada}</p>
+                                                    {/* <p className="text-gray-500 text-small">{moment(detalle.fecha_actualizacion).format("MM/DD/YYYY HH:MM:SS")}</p> */}
+                                                </div>
+                                            } 
+                                        </TableCell>
+                                        <TableCell className="flex flex-col items-center">
+                                            <p className="font-bold">{producto?.stock}</p>
+                                            {/* <p className="text-gray-500 text-small">{moment(detalle.producto.fecha_actualizacion).format("MM/DD/YYYY HH:MM:SS")}</p> */}
+                                        </TableCell>
+                                    </TableRow>
+                                )
+                        })
                         }
                     </TableBody>
                 </Table>

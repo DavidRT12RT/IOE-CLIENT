@@ -1,0 +1,77 @@
+/* Provedor screen styles */
+.ProvedorContainer{
+
+    width: 100%;
+    height: 100%;
+    padding:20px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    justify-content: center;
+
+}
+
+.ProvedorRelations{
+
+    width: 100%;
+    height: fit-content;
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 40px;
+
+}
+
+.ProvedorContainer .boxContainer {
+    width: 650px;
+    height: 450px;
+    border-radius: 20px;
+
+    padding:40px;
+}
+
+ .ProductosContainer{
+    background-color:#e9e5dd;
+}
+
+.PedidosContainer {
+    background-color:#f8f8f8;
+}
+
+.ProvedorInformation{
+    background-color: var(--color-bkg);
+
+    height: 100%;
+    width: 100%;
+
+    border-radius: 20px;
+
+    padding:40px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+
+    gap:60px;
+
+}
+
+.basicInformation{
+    width: 700px;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.detailInformation{
+    border-left: 1px solid black;
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+}

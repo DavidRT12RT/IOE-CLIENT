@@ -30,12 +30,13 @@ export default function InformacionBasica({empleados,values,handleChange,setValu
 
             <Select
                 label="Auxiliares del inventario"
-                name="auxiliares_inventario"
+                name="auxiliares"
                 selectionMode="multiple"
                 placeholder="Ingresa los auxiliares del inventario"
                 value={values.auxiliares_inventario}
                 //@ts-ignore
-                onSelectionChange={(e) => setValues((values) => ({...values,auxiliares_inventario:[...Array.from(e)]}))}
+                onSelectionChange={(e) => setValues((values) => ({...values,auxiliares:[...Array.from(e)]}))}
+                selectedKeys={values.auxiliares}
             >
                 {empleados.map((empleado:any) => (
                     <SelectItem key={empleado.id} value={empleado.id} textValue={empleado.nombre}>

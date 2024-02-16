@@ -1,25 +1,30 @@
 import { useState } from "react";
 import { useForm } from "../../../hooks/useForm";
 import { useFetch } from "../../../hooks/useFetch";
+import fetchAdapter from "../../../helpers/fetch";
+import { message } from "antd";
+import { useNavigate } from "react-router-dom";
 
 interface InitialFormValues {
     nombre_inventario:string;
     tipo_inventario:string;
     categoria?:string;
     productos?:string[];
-    auxiliares_inventario?:string[];
+    auxiliares?:string[];
     descripcion:string;
+    sucursal:string;
 };
 
 export default function useRegistrarInventario(){
 
+    const navigate = useNavigate();
+
     const INITIAL_FORM_VALUES:InitialFormValues = {
         nombre_inventario:"",
         tipo_inventario:"categoria",
-        categoria:"",
-        auxiliares_inventario:[],
+        auxiliares:[],
         descripcion:"",
-        productos:[]
+        sucursal:""
     };
 
     const [ current,setCurrent ] = useState<number>(0);
@@ -29,9 +34,6 @@ export default function useRegistrarInventario(){
     const { data:dataCategorias,isLoading:isLoadingCategorias } = useFetch(`categorias`);
     const { data:dataSucursales,isLoading:isLoadingSucursales } = useFetch(`sucursales`);
 
-    console.log(values);
-
-
     const next = () => {
         setCurrent(current + 1);
     }
@@ -40,8 +42,16 @@ export default function useRegistrarInventario(){
         setCurrent(current - 1);
     }
 
-    const handleRegisterInventario = () => {
-        console.log(values);
+    const handleRegisterInventario = async() => {
+        
+        const response = await fetchAdapter(`inventarios`,values,"POST");
+        const body = await response.json();
+
+        if(response.status !== 201) return message.error(body.message);
+
+        //Inventario creado con exito!
+        message.success(body.message);
+        navigate(`/almacen/inventarios/${body.inventario.id}`);
     }
 
     return {

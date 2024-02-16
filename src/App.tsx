@@ -1,11 +1,16 @@
 
+import { Provider } from 'react-redux';
+
 import AppRouter from './routers/AppRouter';
+import store from './redux/store';
 
 function App() {
 	return (
-		<div className="font-roboto">
-			<AppRouter/>
-		</div>
+		<Provider store={store}>
+			<div className="font-roboto">
+				<AppRouter/>
+			</div>
+		</Provider>
   	);
 
 }

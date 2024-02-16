@@ -1,6 +1,5 @@
 //Custom hook to implement logic
 import { Pagination } from "@nextui-org/react";
-import useInventarios from "../../hooks/useInventarios";
 
 import InvtCard from "./InvtCard";
 
@@ -14,18 +13,20 @@ export const InvtResults = ({isLoadingInventarios,filteredInventarios,handleChan
 
     if(isLoadingInventarios) return <h1>Cargando inventarios del servidor...</h1>
     return (
-        <div className="invtCardsContainer">
-            {
-                filteredInventarios.map((inventario:any) => (
-                    <InvtCard handleChangeInventarioSelected={handleChangeInventarioSelected} inventario={inventario} key={inventario.id} />
+        <>
+            <div className="invtCardsContainer">
+                {
+                    filteredInventarios.map((inventario:any) => (
+                        <InvtCard handleChangeInventarioSelected={handleChangeInventarioSelected} inventario={inventario} key={inventario.id} />
 
-                ))
-            }
+                    ))
+                }
+
+            </div>
             <div className="pagination">
                 <Pagination total={10} initialPage={1} size="lg"/>
             </div>
-
-        </div>
+        </>
     );
     
 };

@@ -1,17 +1,18 @@
 /* LeftMenu Styles */
-.LeftMenu{
-    width: min-content;
+.LeftMenu {
+    width: 300px;
     min-height: 100vh;
-    padding:20px;
-
+    padding: 20px;
     border-right: 1px solid black;
     border-color: #e5e7eb;
+    display: flex;
+    flex-direction: column;
+    transition: width 0.3s ease; /* Transición suave para el cambio de ancho */
 
     display: flex;
     flex-direction: column;
-        
+    justify-content: center;
 }
-
 
 .LeftMenu .icon {
     font-size: 25px;
@@ -19,11 +20,13 @@
 }
 
 .LeftMenu .options {
-    align-self: flex-end;    
+    align-self: flex-end;
     margin-top: auto;
-
     display: flex;
     flex-direction: column;
-    gap:20px;
+    gap: 20px;
+}
 
+.LeftMenu.isOpen {
+    width: 300px; /* Aumenta el ancho en 300px cuando la clase 'isOpen' está presente */
 }

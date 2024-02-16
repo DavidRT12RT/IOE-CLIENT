@@ -1,15 +1,21 @@
+import { useState } from "react";
 import { Avatar, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from "@nextui-org/react";
 
 //Icons
 import { MdOutlineInventory } from "react-icons/md";
 import { IoIosArrowForward } from "react-icons/io";
 
-import "./assets/style.css";
+
+//Redux
 import { useDispatch } from "react-redux";
 import { logout } from "../../redux/authSlice";
 
+import "./assets/style.css";
+
 
 export default function LeftMenu() {
+
+    const [ isOpen,setIsOpen ] = useState(false);
 
     const dispatch = useDispatch();
 
@@ -18,8 +24,8 @@ export default function LeftMenu() {
     }
 
     return (
-        <nav className="LeftMenu">
-            <div className="modules">
+        <nav className={"LeftMenu " + (isOpen ? "isOpen" : "")}>
+            {/* <div className="modules">
                 <p className="icon"><MdOutlineInventory/></p>
             </div>
             <div className="options">
@@ -44,8 +50,8 @@ export default function LeftMenu() {
                         <DropdownItem key="analytics" onClick={handleLogout}>Cerrar seccion</DropdownItem>
                     </DropdownMenu>
                 </Dropdown>
-                <p className="icon"><IoIosArrowForward/></p>
-            </div>
+                <p className="icon" onClick={() => setIsOpen(!isOpen)}><IoIosArrowForward/></p>
+            </div> */}
         </nav>
     );
 

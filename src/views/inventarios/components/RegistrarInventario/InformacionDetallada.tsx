@@ -162,12 +162,11 @@ export default function InformacionDetallada ({values,setValues,handleChange,pro
                 label="Tipo de inventario"
                 name="tipo_inventario"
                 value={values.tipo_inventario}
-                //@ts-ignore
-                onChange={(e) => handleChange(e)}
+                onChange={handleChange}
                 description="El tipo del inventario marca que productos seran los que estaran en el inventario"
             >
-                <SelectItem key={"categoria"} value={"categoria"}>Categoria</SelectItem>
-                <SelectItem key={"personalizado"} value={"personalizado"}>Personalizado</SelectItem>
+                <SelectItem key={"categoria"} value={"categoria"} textValue="categoria">Categoria</SelectItem>
+                <SelectItem key={"personalizado"} value={"personalizado"} textValue="personalizado">Personalizado</SelectItem>
             </Select>
 
 
@@ -183,6 +182,9 @@ export default function InformacionDetallada ({values,setValues,handleChange,pro
                     <Select
                         label={<p className="font-bold">Categoria</p>}
                         placeholder="Seleciona una categoria para los productos"
+                        name="categoria"
+                        value={values.categoria}
+                        onChange={handleChange}
                     >
                         {categorias.map((categoria:any) => (
                             <SelectItem key={categoria.id} value={categoria.id}>
@@ -196,6 +198,9 @@ export default function InformacionDetallada ({values,setValues,handleChange,pro
                 label={<p className="font-bold">Sucursal</p>}
                 description="Sucursal donde se llevara acabo el inventario"
                 placeholder="Selecciona una sucursal"
+                name="sucursal"
+                value={values.sucursal}
+                onChange={handleChange}
             >
                 {sucursales.map((sucursal:any) => (
                     <SelectItem key={sucursal.id} value={sucursal.id} textValue={`${sucursal.ciudad} ${sucursal.calle}`}>

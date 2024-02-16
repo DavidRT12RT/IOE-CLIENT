@@ -54,9 +54,10 @@
 }
 
 .invtCardsContainer{
+    height: 100%;    
+
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+    flex-direction: column;
     gap:20px;
 }
 
@@ -70,6 +71,7 @@
 /* Inventario Card */
 .invtCardContainer{
     width: 100%;
+    height: fit-content;
 
     border-radius: 20px;
     padding: 30px;
@@ -124,9 +126,9 @@
 
 @media (min-width:100px) and (max-width:1000px){
     .invtInfoNotSelected{
+        visibility: hidden;
         display: none;
     }
-
 
     .InvtInfo{
         display: none;

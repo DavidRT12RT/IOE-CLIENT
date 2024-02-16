@@ -2,6 +2,7 @@ import React, { memo, useMemo, useState } from "react";
 import { Checkbox, Input, Modal, ModalBody, ModalContent, ModalHeader, Select, SelectItem, SelectSection, useDisclosure } from "@nextui-org/react";
 import { CiSearch } from "react-icons/ci";
 import { IoIosArrowForward } from "react-icons/io";
+import { AlmacenSucursal, Sucursal } from "../../../inventarios/interfaces/Inventario";
 
 
 
@@ -124,6 +125,7 @@ export default function InformacionDetallada({
     // const { isOpen: isOpenModalProductos, onOpen: onOpenModalProductos,onClose:onCloseProductos } = useDisclosure();
     const [filterValue, setFilterValue] = useState<string>("");
     const hasSearchFilter = Boolean(filterValue);
+
     const filteredCategorias = useMemo(() => {
 
         let filteredCategorias = [...categorias];
@@ -181,7 +183,7 @@ export default function InformacionDetallada({
                 onSelectionChange={(e) => setValues((values) => ({...values,almacenes:[...Array.from(e)]}))}
             >
                 {
-                    sucursales.map((sucursal:any) => (
+                    sucursales.map((sucursal:Sucursal) => (
                         <SelectSection key={sucursal.id} showDivider title={`${sucursal.ciudad} ${sucursal.calle}`}>
                             {
                                 sucursal.almacenes.map((almacen:any) => (

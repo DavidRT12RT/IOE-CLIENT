@@ -1,8 +1,5 @@
-import { BreadcrumbItem, Breadcrumbs } from "@nextui-org/react";
-import LeftMenu from "../components/leftMenu/LeftMenu";
-
 //Routes
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Link, Route, Routes, useLocation } from "react-router-dom";
 import AlmacenRouter from "./AlmacenRouter";
 import PublicRoute from "./PublicRoute";
 import AuthRouter from "./AuthRouter";
@@ -11,8 +8,18 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { startChecking } from "../redux/thunks";
 import { RootState } from "../redux/store";
+import LeftMenu from "../components/leftMenu/LeftMenu";
+import { BreadcrumbItem, Breadcrumbs } from "@nextui-org/react";
 
 export default function AppRouter(){
+
+    const currentPath = window.location.pathname;
+    let pathArray = currentPath.split('/').filter(Boolean);
+
+    function capitalizeFirstLetter(ruta:string) {
+        return ruta.charAt(0).toUpperCase() + ruta.slice(1);
+    }
+
 
 	const dispatch = useDispatch();
 
@@ -27,6 +34,7 @@ export default function AppRouter(){
     if(auth.status == "checking") {
         return <h1>Comprobando token...</h1>
     } 
+
 
     return (
         <BrowserRouter>
@@ -49,9 +57,13 @@ export default function AppRouter(){
 				                <LeftMenu/>
 				                <div className="MainContent">
                                 <Breadcrumbs>
-                            	    <BreadcrumbItem>Home</BreadcrumbItem>
-                	                <BreadcrumbItem>Productos</BreadcrumbItem>
-                	                <BreadcrumbItem><p className="font-bold">405bd12a-08b1-4a02-b92d-5c395f259c3a</p></BreadcrumbItem>
+                                    {
+                                        pathArray.map((ruta:string) => (
+                            	                <BreadcrumbItem key={ruta}>
+                                                    <Link to={ruta}>{capitalizeFirstLetter(ruta)}</Link>
+                                                </BreadcrumbItem>
+                                        ))
+                                    }
             	                </Breadcrumbs>
                                 <AlmacenRouter/>
 				                </div>

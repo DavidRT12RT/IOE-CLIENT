@@ -27,14 +27,13 @@ const Inventarios = () => {
     return (
         <section className="Inventarios text-sm md:text-base grid grid-cols-1 md:grid-cols-5 gap-5">
             <div className="LeftColumn col-span-5 md:col-span-2">
-                <h1 className="text-5xl lg:text-6xl font-extrabold">Inventarios</h1>
                 <InvtFinder filterValue={filterValue} setFilterValue={setFilterValue}/>
                 <InvtResults isLoadingInventarios={isLoadingInventarios} filteredInventarios={filteredInventarios} handleChangeInventarioSelected={handleChangeInventarioSelected}/>
             </div>
             {
                 inventarioSelected === null 
                 ? 
-                    <div className= "invtInfoNotSelected col-span-0 md:col-span-3">
+                    <div className="invtInfoNotSelected col-span-0 md:col-span-3 md:block">
                         <img src={logo}/>
                         <h2 className="text-2xl font-bold">Seleciona un inventario</h2> 
                         <p className="">Seleciona un inventario para ver la previsualizacion de la informacion y editarlo.</p>

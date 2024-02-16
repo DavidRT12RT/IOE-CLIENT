@@ -33,6 +33,7 @@ export default function RegistrarInventario (){
         sucursales,
         isLoadingSucursales
     } = useRegistrarInventario();
+
     const { isOpen: isOpenModalRegistrar, onOpen: onOpenModalRegistrar,onClose:onCloseModalRegistrar } = useDisclosure();
 
     const steps = [
@@ -59,10 +60,6 @@ export default function RegistrarInventario (){
                 handleChange={handleChange}
             />),
             id:2
-        },
-        {
-            title:"Resumen",
-            id:4
         },
     ];
 

@@ -1,0 +1,103 @@
+/* Estilos de Productos */
+.productosContainer{
+    padding:20px 0px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.productsFirtsSection{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+
+    width: 100%;
+}
+
+.finder{
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+    min-width: 50%;
+}
+
+.productsSection{
+    width: 100%;
+    min-height: 100vh;
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap:20px;
+}
+
+.productoCard{
+    background-color: var(--color-bkg);
+    width: fit-content;
+
+    padding: 15px;
+
+    border-radius: 20px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+
+    cursor: pointer;
+
+}
+
+.productoCard .imgContainer{
+    width: 100%;
+}
+
+.productoCard .imgContainer img {
+    width: 300px;
+    height: 300px;
+
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.productoNameAndStatusContainer{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-top: 15px;
+}
+
+.showResultsSection{
+
+    width: 100%;
+    height: fit-content;
+
+    display: flex;
+    justify-content:space-between;
+    align-content: center;
+    flex-wrap: wrap;
+    gap:20px;
+
+}
+
+
+@media (min-width:100px) and (max-width:1000px){
+
+    .productsSection{
+        justify-content: center;
+    }
+
+    .productsFirtsSection{
+        gap: 20px;
+    }
+
+    .finder{
+        min-width: 100%;
+    }
+
+}

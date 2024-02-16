@@ -29,7 +29,6 @@ export default function Producto() {
 
 
     if(isLoadingDataProducto) return <h1>Cargando informacion del producto...</h1>
-    if(errorDataProducto) return navigate(-1);
 
     return (
         <>
