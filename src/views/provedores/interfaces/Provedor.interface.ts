@@ -21,7 +21,7 @@ export interface Provedor {
     notas:                  string;
     tipoDePersona:          TipoDePersona;
     direcciones:            Direccion[];
-    cuentasBancarias:       CuentasBancaria[];
+    cuentasBancarias:       CuentaBancaria[];
 }
 
 
@@ -32,7 +32,7 @@ export enum CondicionesPago {
 }
 
 
-export interface CuentasBancaria {
+export interface CuentaBancaria {
     id:            string;
     numero_cuenta: string;
     banco:         string;

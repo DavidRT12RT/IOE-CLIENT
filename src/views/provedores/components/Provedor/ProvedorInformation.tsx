@@ -1,15 +1,26 @@
+import { Button } from "@nextui-org/react";
 import { Provedor } from "../../interfaces/Provedor.interface";
+import { useState } from "react";
+import CuentasBancarias from "./CuentasBancarias";
+import Direcciones from "./Direcciones";
 
 interface ProvedorInformationProps {
     provedor:Provedor
 };
 
+enum tabActiveUI {
+    CUENTAS_BANCARIAS = "CUENTAS_BANCARIAS",
+    DIRECCIONES = "DIRECCIONES"
+};
+
 export default function ProvedorInformation({provedor}:ProvedorInformationProps){
+
+    const [ tabActive,setTabActive ] = useState(tabActiveUI.CUENTAS_BANCARIAS);
 
     return (
         <div className="ProvedorInformation">
             <div className="basicInformation">
-                <h2 className="font-extrabold text-7xl">{provedor.nombre} <span className="text-sm text-gray-500">(Han)</span></h2>
+                <h2 className="font-extrabold text-7xl">{provedor.nombre} <span className="text-sm text-gray-500">({provedor.alias})</span></h2>
                 <div className="grid grid-cols-2 gap-4 mt-5">
                     <p className="font-bold">Correo:</p>
                     <p className="text-gray-500">{provedor.correo}</p>
@@ -26,7 +37,16 @@ export default function ProvedorInformation({provedor}:ProvedorInformationProps)
                 </div>
             </div>
             <div className="detailInformation">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero iure explicabo, dolor voluptates exercitationem doloribus rem aperiam fugit. Praesentium consequatur doloribus cum non autem. Voluptatum aperiam debitis ipsum quisquam maiores.
+                <div>
+                    <Button onClick={() => setTabActive(tabActiveUI.CUENTAS_BANCARIAS)} color={tabActive === tabActiveUI.CUENTAS_BANCARIAS ? "primary" : "default"} size="lg" style={{borderRadius:"0px",borderTopLeftRadius:"10px",borderBottomLeftRadius:"10px"}}>Cuentas bancarias</Button>
+                    <Button onClick={() => setTabActive(tabActiveUI.DIRECCIONES)} color={tabActive === tabActiveUI.DIRECCIONES ? "primary" : "default"} size="lg" style={{borderRadius:"0px",borderTopRightRadius:"10px",borderBottomRightRadius:"10px"}}>Direcciones</Button>
+                </div>
+
+                {
+                    tabActive === tabActiveUI.CUENTAS_BANCARIAS ? <CuentasBancarias cuentasBancarias={provedor.cuentasBancarias}/> : <Direcciones direcciones={provedor.direcciones}/>
+
+                }
+
             </div>
         </div>
     );

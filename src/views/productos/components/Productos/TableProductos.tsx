@@ -42,6 +42,7 @@ export default function TableProductos({productos}:TableProductosProps){
     return (
 
         <Table 
+            isStriped
             aria-label="Tabla productos" 
             color="primary" 
             selectionMode="multiple"
