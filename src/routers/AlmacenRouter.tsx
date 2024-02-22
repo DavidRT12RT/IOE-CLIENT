@@ -9,14 +9,14 @@ import RegistrarInventario from "../views/inventarios/RegistrarInventario";
 import Productos from "../views/productos/Productos";
 import RegistrarProvedor from "../views/provedores/RegistrarProvedor";
 import Provedor from "../views/provedores/Provedor";
+import Provedores from "../views/provedores/Provedores";
 
 export default function AlmacenRouter(){
-
-
 
     return (
         <Routes>
             <Route path="/productos" element={<Productos/>}></Route>
+            <Route path="/provedores" element={<Provedores/>}></Route>
             {/*//@ts-ignore*/}
             <Route path="/productos/:id" element={<Producto/>}></Route>
             <Route path="/productos/registrar" element={<RegistrarProducto/>}></Route>

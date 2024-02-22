@@ -11,6 +11,8 @@ interface InvtCardProps {
 
 export default function InvtCard({inventario,handleChangeInventarioSelected}:InvtCardProps){
 
+    console.log(inventario);
+
     return (
         <div className="invtCardContainer" onClick={() => {handleChangeInventarioSelected(inventario)}}>
             <div className="flex gap-4 items-center">
@@ -32,7 +34,7 @@ export default function InvtCard({inventario,handleChangeInventarioSelected}:Inv
             <div className="flex gap-5 items-center">
                 <div>
                     <p className="font-bold">Art. Ajustados {inventario.articulos_ajustados}</p>
-                    <p className="font-bold">Art. Contados {inventario.detalles.length}</p>
+                    <p className="font-bold">Art. Contados {inventario.productos.length}</p>
                     <p className="font-bold text-sm text-gray-500">Fech. Registro {moment(inventario.fecha_registro).format("DD/MM/YYYY")}</p>
                 </div>
             </div>

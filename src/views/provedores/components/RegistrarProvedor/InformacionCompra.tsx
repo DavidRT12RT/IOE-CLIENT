@@ -18,6 +18,7 @@ export default function InformacionCompra({values,handleChange,setValues}:Inform
                 name="condicionesComerciales"
                 selectedKeys={values.condicionesComerciales}
                 onSelectionChange={(e) => setValues((values:RegisterProvedor) => ({...values,condicionesComerciales:[...Array.from(e)]}))}
+                selectionMode="multiple"
             >
                 <SelectItem value={"CONTADO"} key={"CONTADO"}>CONTADO</SelectItem>
                 <SelectItem value={"CREDITO"} key={"CREDITO"}>CREDITO</SelectItem>
@@ -26,6 +27,7 @@ export default function InformacionCompra({values,handleChange,setValues}:Inform
             <Select
                 label="Condiciones de pago"
                 name="condicionesPago"
+                selectionMode="multiple"
                 selectedKeys={values.condicionesPago}
                 onSelectionChange={(e) => setValues((values:RegisterProvedor) => ({...values,condicionesPago:[...Array.from(e)]}))}
             >

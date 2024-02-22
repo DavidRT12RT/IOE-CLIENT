@@ -19,21 +19,21 @@ export default function Inventario(){
         setIsEditing,
 
         almacenesSelected,
-        handleChangeAlmacen
+        setAlmacenSelected
     } = useInventario();
 
+    
     if(isLoadingInventario) return (<h1>Cargando inventario</h1>)
     if(errorInventario) return (<h1>Error a la hora de cargar inventario</h1>)
 
     return (
         <section className="InvtContainer">
             <InvtItems 
-                // @ts-ignore
                 inventario={inventario} 
                 isEditing={isEditing} 
                 setIsEditing={setIsEditing}
                 almacenesSelected={almacenesSelected}
-                handleChangeAlmacen={handleChangeAlmacen}
+                setAlmacenSelected={setAlmacenSelected}
             />
             <InvtInfo 
                 inventario={inventario}

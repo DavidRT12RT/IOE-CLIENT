@@ -1,13 +1,16 @@
-import { Input, Textarea } from "@nextui-org/react";
+import { Input, Select, SelectItem, Textarea } from "@nextui-org/react";
+import { Categoria } from "../../interfaces/Producto";
+import { initialFormValues } from "../../hooks/useRegistrarProducto";
+import { ChangeEvent } from "react";
 
 
 interface InformacionBasicaProps{
-    values:any;
-    handleChange:any;
+    values:initialFormValues;
+    handleChange:({ target }: ChangeEvent<HTMLInputElement>) => void;
+    categorias:Categoria[];
 };
 
-export default function InformacionBasica({values,handleChange}:InformacionBasicaProps){
-
+export default function InformacionBasica({values,handleChange,categorias}:InformacionBasicaProps){
 
     return (
         <>
@@ -21,7 +24,19 @@ export default function InformacionBasica({values,handleChange}:InformacionBasic
                 value={values.nombre}
                 onChange={handleChange}
             />
-
+            <Select
+                name="categoria"
+                label="Categoria del producto"
+                value={[values.categoria]}
+                // @ts-ignore
+                onChange={handleChange}
+            >
+                {
+                    categorias.map((categoria:Categoria) => (
+                        <SelectItem key={categoria.id} value={categoria.id} textValue={categoria.nombre} id={categoria.id}>{categoria.nombre}</SelectItem>
+                    ))
+                }
+            </Select>
             <Textarea 
                 isRequired
                 size="lg"
@@ -31,28 +46,6 @@ export default function InformacionBasica({values,handleChange}:InformacionBasic
                 value={values.descripcion}
                 onChange={handleChange}
             />
-            <Input 
-                isRequired
-                // variant="bordered"
-                size="md"
-                type="number"
-                name="stock_minimo"
-                label="Stock minimo"
-                value={values.stock_minimo}
-                onChange={handleChange}
-            />
-
-            <Input 
-                isRequired
-                // variant="bordered"
-                size="md"
-                type="number"
-                name="costo_promedio"
-                label="Costo promedio"
-                value={values.costo_promedio}
-                onChange={handleChange}
-            />
-
         </>
     );
 

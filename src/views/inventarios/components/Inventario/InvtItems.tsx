@@ -1,7 +1,6 @@
-import { ChangeEvent, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Avatar, Button, Chip, Input, Pagination, Select, SelectItem, Table, TableBody, TableCell, TableColumn, TableHeader, TableRow } from "@nextui-org/react";
 import { Link } from "react-router-dom";
-import moment from "moment";
 
 import { CiSearch } from "react-icons/ci";
 import { Almacen, Detalle, Inventario, Producto } from "../../interfaces/Inventario";
@@ -13,29 +12,32 @@ export default function InvtItems({
     setIsEditing,
     
     almacenesSelected,
-    handleChangeAlmacen
+    setAlmacenSelected
 }:{
     inventario:Inventario,
     isEditing:boolean,
     setIsEditing:any,
     almacenesSelected:any;
-    handleChangeAlmacen:any;
+    setAlmacenSelected:any
 }){
+
+    const [ rowsPerPage,setRowsPerPage ] = useState<number>(5);
+
+    useEffect(() => {
+        if(inventario != null) setAlmacenSelected([inventario.sucursal.almacenes[0]?.id]);
+    },[inventario]);
 
     const filteredDetalles = useMemo(() => {
 
         let filteredDetalles = [...inventario.detalles];
 
         filteredDetalles = filteredDetalles.filter(detalle => {
-            // Verificar si alguno de los almacenes del detalle está en almacenesSelected
             return detalle.almacenes.some(almacen => almacenesSelected.includes(almacen.almacenId));
         });
 
         return filteredDetalles;
 
-    },[inventario]);
-
-    console.log(filteredDetalles);
+    },[inventario,almacenesSelected]);
 
 
     const topContent = useMemo(() => {
@@ -45,28 +47,30 @@ export default function InvtItems({
                 <div className="flex items-center gap-5">
                     <label className="flex items-center text-default-400 text-small">
                         Filas 
-                        <select
-                            className="bg-transparent outline-none text-default-400 text-small"
+                        <select 
+                            id="rowsPerPageSelect"
+                            value={rowsPerPage} 
+                            onChange={(e) => setRowsPerPage(parseInt(e.target.value))}
                         >
-                            <option value="5">5</option>
-                            <option value="10">10</option>
-                            <option value="15">15</option>
+                            <option value={5}>5</option>
+                            <option value={10}>10</option>
+                            <option value={15}>15</option>
                         </select>
                     </label>
                     <label className="flex items-center text-default-400 text-small">
-                        Almacen
-                        <select
-                            className="bg-transparent outline-none text-default-400 text-small"
-                            style={{zIndex:"1000px"}}
-                            value={almacenesSelected}
-                            onChange={handleChangeAlmacen}
-                            id="almacen"
+                        Almacenes 
+                        <Select
+                            className="ml-3"
+                            selectedKeys={almacenesSelected}
+                            selectionMode="multiple"
+                            onSelectionChange={(e) => setAlmacenSelected([...Array.from(e)])}
                         >
-                            {inventario.sucursal.almacenes.map((almacen:any) => (
-                                <option value={almacen.id} key={almacen.id}>{almacen.nombre}</option>
+                            {inventario.sucursal.almacenes.map((almacen:Almacen) => (
+                                <SelectItem key={almacen.id} value={almacen.id} textValue={`${almacen.nombre} ${almacen.descripcion}`} id={almacen.id}>{almacen.nombre} {almacen.descripcion}</SelectItem>
                             ))}
-                        </select>
+                        </Select>
                     </label>
+
                 </div>
 
             </div>
@@ -135,12 +139,13 @@ export default function InvtItems({
                     <TableHeader>
                         <TableColumn key={"nombre"}>NOMBRE PRODUCTO</TableColumn>
                         <TableColumn key={"categoria"}>CATEGORIA</TableColumn>
-                        <TableColumn key={"cantidad_contada"}>CANTIDAD CONTADA / FECHA ULT. ACT.</TableColumn>
+                        <TableColumn key={"cantidad_contada"}>CANTIDAD CONTADA / ALMACEN</TableColumn>
                         <TableColumn key={"stock"}>STOCK ACTUAL / FECHA ULT. ACT.</TableColumn>
                     </TableHeader>    
                     <TableBody>
                         {
-                            inventario.detalles.map((detalle:Detalle,index:number) => {
+
+                            filteredDetalles.slice(0,rowsPerPage).map((detalle:Detalle,index:number) => {
 
                                 const producto = inventario.productos.find((producto:Producto) => producto.id === detalle.productoId);
 
@@ -173,7 +178,6 @@ export default function InvtItems({
                                                 :
                                                 <div className="flex flex-col items-center">
                                                     <p className="font-bold">{detalle.almacenes[0].cantidad_contada}</p>
-                                                    {/* <p className="text-gray-500 text-small">{moment(detalle.fecha_actualizacion).format("MM/DD/YYYY HH:MM:SS")}</p> */}
                                                 </div>
                                             } 
                                         </TableCell>

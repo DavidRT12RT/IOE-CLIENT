@@ -10,6 +10,10 @@ import InformacionDetallada from "./components/RegistrarProducto/InformacionDeta
 // import Archivos from "./components/RegistrarProducto/Archivos";
 
 import "./assets/RegistrarProducto.css";
+import InformacionDeCompra from "./components/RegistrarProducto/InformacionDeCompra";
+import InformacionSat from "./components/RegistrarProducto/InformacionSat";
+import ProvedoresProducto from "../provedores/components/RegistrarProvedor/ProvedoresProducto";
+import AlmacenesProducto from "./components/RegistrarProducto/AlmacenesProducto";
 
 export default function RegistrarProducto (){
 
@@ -25,15 +29,24 @@ export default function RegistrarProducto (){
         dataAlmacenes,
         dataProductos,
         dataSucursales,
+        dataProvedores,
+        dataSatClaves,
+        dataSatUnidades,
 
         // isLoadingSucursales,
         isLoadingAlmacenes,
+        isLoadingProvedores,
         isLoadingCategorias,
         isLoadingProductos,
+        isLoadingClavesSat,
+        isLoadingUnidadesSat,
         
         errorCategorias,
         errorAlmacenes,
         errorProductos,
+        errorProvedores,
+        errorClavesSat,
+        errorUnidadesSat,
 
         handleRegisterProducto
     } = useRegistrarProducto();
@@ -42,41 +55,40 @@ export default function RegistrarProducto (){
     const steps = [
         {
             title:"Informacion basica del producto",
-            content:<InformacionBasica
-                values={values}
-                handleChange={handleChange}
-            />,
+            content:<InformacionBasica values={values} handleChange={handleChange} categorias={dataCategorias?.categorias} />,
             id:1
         },
         {
-            title:"Informacion detallada del producto",
-            content:
-            <InformacionDetallada 
-                values={values}
-                setValues={setValues}
-                almacenes={dataAlmacenes?.almacenes}
-                categorias={dataCategorias?.categorias} 
-                sucursales={dataSucursales?.sucursales}
-                productos={dataProductos?.productos}
-            />,
+            title:"Almacenes del producto",
+            content:<AlmacenesProducto values={values} setValues={setValues} sucursales={dataSucursales?.sucursales}/>,
             id:2
         },
-        // {
-        //     title:"Fotos del producto",
-        //     content:<Archivos/>,
-        //     id:3
-        // },
-        // {
-        //     title:"Resumen",
-        //     // content:<Archivos/>,
-        //     id:4
-        // },
+        {
+            title:"Provedores del producto",
+            content:<ProvedoresProducto values={values} setValues={setValues} provedores={dataProvedores?.provedores}/>,
+            id:10
+        },
+        {
+            title:"Informacion de compra",
+            content:<InformacionDeCompra values={values} handleChange={handleChange}/>,
+            id:3
+        },
+        {
+            title:"Informacion del SAT",
+            content:<InformacionSat values={values} handleChange={handleChange} clavesSat={dataSatClaves?.clavesSat} unidadesMedidaSat={dataSatUnidades?.unidadesMedidaSat}/>,
+            id:4
+        },
+        {
+            title:"Detalles del producto",
+            content:<InformacionDetallada values={values} setValues={setValues} handleChange={handleChange} productos={dataProductos?.productos}/>,
+            id:5
+        },
     ];
 
     const { isOpen: isOpenModalRegistrar, onOpen: onOpenModalRegistrar,onClose:onCloseModalRegistrar } = useDisclosure();
 
-    if(isLoadingCategorias || isLoadingAlmacenes || isLoadingProductos ) return <h1>Cargando...</h1>
-    if(errorAlmacenes || errorCategorias || errorProductos ) return <p>Categorias o almacenes no se pudieron extraer del servidor , contacta a un administrador!</p>;
+    if(isLoadingCategorias || isLoadingAlmacenes || isLoadingProductos || isLoadingProvedores) return <h1>Cargando...</h1>
+    if(errorAlmacenes || errorCategorias || errorProductos || errorProvedores || errorClavesSat || errorUnidadesSat) return <p>Categorias o almacenes no se pudieron extraer del servidor , contacta a un administrador!</p>;
     return (
         <section className="registerContainer">
             <Modal 
@@ -100,8 +112,12 @@ export default function RegistrarProducto (){
                     )}
                 </ModalContent>
             </Modal>
-            <h1 className="font-extrabold text-2xl lg:text-5xl">Registrar un producto</h1>
-            <p className="text-gray-500">Llenar los siguientes datos para registrar un nuevo producto a almacen.</p>
+            <div className="descriptionContent">
+                <h1 className="text-4xl font-extrabold">Registrar producto</h1>
+                <p className="text-gray-500 text-xl mt-2">Ingresa la informacion del producto en el <b>sistema</b></p>
+
+                <p className="text-gray-500 text-sm mt-10">Crear un producto en el sistema y asocia los <b>provedores</b> los <b>almacenes</b> y la categoria. </p>
+            </div>
             <Steps current={current} items={steps}/>
             <div className="registerContent">{steps[current].content}</div>
             <div className="mt-3">

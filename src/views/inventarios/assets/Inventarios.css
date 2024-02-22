@@ -90,12 +90,12 @@
     cursor: pointer;
 }
 
-.invtCardContainer:hover{
+/* .invtCardContainer:hover{
 
     background-color: var(--primary-color);
     color:white;
 
-}
+} */
 
 .invtInfoArticulos{
     width: 100%;

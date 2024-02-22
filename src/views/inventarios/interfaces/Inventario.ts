@@ -1,3 +1,7 @@
+export interface Inventarios {
+    inventarios: Inventario[];
+}
+
 export interface Inventario {
     id:                                 string;
     nombre_inventario:                  string;
@@ -12,29 +16,20 @@ export interface Inventario {
     fecha_registro:                     string;
     fecha_actualizacion:                string;
     detalles:                           Detalle[];
-    sucursal:                           Sucursal;
-    productos:                          Producto[];
     supervisor:                         Supervisor;
+    productos:                          Producto[];
+    sucursal:                           Sucursal;
 }
 
 export interface Detalle {
-    almacenes:  Almacen[];
+    almacenes:  AlmacenDetalle[];
     productoId: string;
 }
 
-export interface Almacen {
+export interface AlmacenDetalle {
     almacenId:        string;
     cantidad_contada: number;
 }
-
-export interface AlmacenSucursal {
-    id:string;
-    nombre:string;
-    descripcion:string;
-    tipo_almacen:string;
-    fecha_registro:Date;
-    fecha_actualizacion:Date;
-};
 
 export interface Producto {
     id:                  string;
@@ -49,10 +44,10 @@ export interface Producto {
     costo_promedio:      number;
     fecha_registro:      string;
     fecha_actualizacion: string;
-    categoria:           Categoria;
+    categoria:           any;
 }
 
-export interface Categoria {
+export interface Almacen {
     id:                  string;
     nombre:              string;
     descripcion:         string;
@@ -61,8 +56,6 @@ export interface Categoria {
     tipo_almacen?:       string;
 }
 
-
-
 export interface Sucursal {
     id:                  string;
     zona:                string;
@@ -70,7 +63,7 @@ export interface Sucursal {
     calle:               string;
     fecha_registro:      string;
     fecha_actualizacion: string;
-    almacenes:           Categoria[];
+    almacenes:           Almacen[];
 }
 
 export interface Supervisor {

@@ -20,7 +20,7 @@ export default function ProvedorInformation({provedor}:ProvedorInformationProps)
     return (
         <div className="ProvedorInformation">
             <div className="basicInformation">
-                <h2 className="font-extrabold text-7xl">{provedor.nombre} <span className="text-sm text-gray-500">({provedor.alias})</span></h2>
+                <h2 className="font-extrabold text-7xl">{provedor.nombre} {provedor.alias && <span className="text-sm text-gray-500">({provedor.alias})</span>}</h2>
                 <div className="grid grid-cols-2 gap-4 mt-5">
                     <p className="font-bold">Correo:</p>
                     <p className="text-gray-500">{provedor.correo}</p>

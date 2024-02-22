@@ -3,7 +3,55 @@ import { useFetch } from "../../../hooks/useFetch";
 import { useForm } from "../../../hooks/useForm";
 import { message } from "antd";
 import fetchAdapter from "../../../helpers/fetch";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";    
+import { Producto } from "../interfaces/Producto";
+
+
+export enum UnidadCompra {
+	PIEZA = "PIEZA",
+	CAJA = "CAJA",
+	PAQUETE = "PAQUETE"
+};
+
+export enum UnidadVenta {
+	PIEZA = "PIEZA",
+	CAJA = "CAJA",
+	PAQUETE = "PAQUETE"
+};
+
+export enum MetodoReabasto {
+	FIJO = "FIJO",
+	RESURTIBLE = "RESURTIBLE"
+};
+export interface ProvedorProductoNew{
+    costo:string;
+    provedor:string;
+};
+
+export interface AlmacenProductoNew{
+    stock:string;
+    almacen:string;
+};
+
+export interface initialFormValues {
+    nombre:string;
+    descripcion:string;
+    stock_minimo:string;
+    costo_promedio:string;
+    provedores:ProvedorProductoNew[];
+    almacenes:AlmacenProductoNew[];
+    categoria:any;
+    inventariable:boolean;
+    unidad_compra:UnidadCompra;
+    unidad_venta:UnidadVenta;
+    metodo_reabasto:MetodoReabasto;
+    claveSat:string;
+    unidadMedidaSat:string;
+    es_producto_hijo:false;
+    es_producto_padre:false;
+    producto_padre:Producto | null;
+    numero_productos_hijos:number;
+}
 
 export const useRegistrarProducto = () => {
 
@@ -12,23 +60,13 @@ export const useRegistrarProducto = () => {
     const { data: dataSucursales,isLoading: isLoadingSucursales,error:errorSucursales } = useFetch("sucursales");
     const { data: dataAlmacenes,isLoading: isLoadingAlmacenes,error:errorAlmacenes } = useFetch("almacenes");
     const { data: dataProductos,isLoading: isLoadingProductos,error:errorProductos } = useFetch("productos");
+    const { data: dataProvedores,isLoading: isLoadingProvedores,error:errorProvedores } = useFetch("provedores");
+
+    const { data: dataSatClaves,isLoading: isLoadingClavesSat,error:errorClavesSat } = useFetch("sat/claves");
+    const { data: dataSatUnidades,isLoading: isLoadingUnidadesSat,error:errorUnidadesSat } = useFetch("sat/unidades");
 
     const navigate = useNavigate();
 
-    interface AlmacenStock {
-        stock:number;
-        almacen:string;
-    }
-
-    interface initialFormValues {
-        nombre:string;
-        descripcion:string;
-        stock_minimo:string;
-        costo_promedio:string;
-        categoria:any;
-        almacenes:AlmacenStock[];
-        inventariable:boolean;
-    }
 
     const initialFormValuesState:initialFormValues = {
         nombre:"",
@@ -38,14 +76,16 @@ export const useRegistrarProducto = () => {
         categoria:"",
         inventariable:true,
         almacenes:[],
-        // es_producto_padre:false,
-        // es_producto_hijo:false,
-        // producto_padre:{
-        //     nombre:""
-        // },
-        // numero_productos_hijos:"",
-        // img:[],
-        // sucursales:[],
+        provedores:[],
+        unidad_compra:UnidadCompra.PAQUETE,
+        unidad_venta:UnidadVenta.PIEZA,
+        metodo_reabasto:MetodoReabasto.FIJO,
+        claveSat:"",
+        unidadMedidaSat:"",
+        es_producto_padre:false,
+        es_producto_hijo:false,
+        producto_padre:null,
+        numero_productos_hijos:0,
     };
 
     const { values,handleChange,setValues } = useForm(initialFormValuesState);
@@ -71,9 +111,11 @@ export const useRegistrarProducto = () => {
         if(response.status !== 201) return message.error(body.message);
 
         message.success(body.message);
-        navigate(`/almacen/producto/${body?.producto?.id}`);
+        navigate(`/almacen/productos/${body?.producto?.id}`);
 
     }
+
+    console.log(values);
 
     return {
         current,
@@ -92,6 +134,15 @@ export const useRegistrarProducto = () => {
         isLoadingProductos,
         dataProductos,
 
+        isLoadingProvedores,
+        dataProvedores,
+
+        isLoadingClavesSat,
+        dataSatClaves,
+
+        isLoadingUnidadesSat,
+        dataSatUnidades,
+
         values,
         setValues,
         handleChange,
@@ -100,7 +151,10 @@ export const useRegistrarProducto = () => {
         errorAlmacenes,
         errorProductos,
         errorSucursales,
-        
+        errorProvedores,
+        errorClavesSat,
+        errorUnidadesSat,
+
         handleRegisterProducto
     };
 

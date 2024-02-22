@@ -16,7 +16,7 @@ export const InvtResults = ({isLoadingInventarios,filteredInventarios,handleChan
         <>
             <div className="invtCardsContainer">
                 {
-                    filteredInventarios.map((inventario:any) => (
+                    filteredInventarios.slice(0,5).map((inventario:any) => (
                         <InvtCard handleChangeInventarioSelected={handleChangeInventarioSelected} inventario={inventario} key={inventario.id} />
 
                     ))

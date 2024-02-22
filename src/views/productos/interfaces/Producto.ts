@@ -1,6 +1,11 @@
+export interface Productos {
+    productos: Producto[];
+}
+
 export interface Producto {
     id:                  string;
     nombre:              string;
+    status:              boolean;
     descripcion:         string;
     usos:                any[];
     material:            null;
@@ -13,6 +18,7 @@ export interface Producto {
     fecha_actualizacion: string;
     productosAlmacen:    ProductosAlmacen[];
     categoria:           Categoria;
+    provedorProductos:   ProvedorProducto[];
 }
 
 export interface Categoria {
@@ -31,4 +37,44 @@ export interface ProductosAlmacen {
     fecha_registro:      string;
     fecha_actualizacion: string;
     almacen:             Categoria;
+}
+
+export interface ProvedorProducto {
+    id:       string;
+    provedor: Provedor;
+}
+
+export interface Provedor {
+    id:                     string;
+    nombre:                 string;
+    alias:                  string | null;
+    RFC:                    string;
+    telefono:               string;
+    movil:                  null;
+    correo:                 string;
+    sitio_web:              null;
+    etiquetas:              null;
+    condicionesComerciales: CondicionesComerciales[];
+    condicionesPago:        CondicionesPago[];
+    tarifas:                string[];
+    recordatorio_recibo:    boolean;
+    notas:                  string;
+    tipoDePersona:          TipoDePersona;
+}
+
+export enum CondicionesComerciales {
+    Contado = "CONTADO",
+    Credito = "CREDITO",
+}
+
+export enum CondicionesPago {
+    The15Dias = "15 DIAS",
+    The21Dias = "21 DIAS",
+    The45Dias = "45 DIAS",
+}
+
+
+export enum TipoDePersona {
+    MORAL = "MORAL",
+    FISICA = "FISICA"
 }

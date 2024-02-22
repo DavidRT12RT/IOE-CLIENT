@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useFetch } from "../../../hooks/useFetch";
-import { ChangeEvent, useMemo, useState } from "react";
+import { ChangeEvent, useEffect, useMemo, useState } from "react";
 import { Inventario } from "../interfaces/Inventario";
 
 export default function useInventario(){
@@ -11,30 +11,13 @@ export default function useInventario(){
         isLoading:isLoadingInventario,
         error:errorInventario 
     } = useFetch(`inventarios/${params.id}`);
+
     const [ isEditing,setIsEditing ] = useState<boolean>(false);
-
-    const [ almacenesSelected,setAlmacenSelected ] = useState([dataInventario?.inventario.sucursal.almacenes[0].id]);
-
-    const handleChangeAlmacen = (event:ChangeEvent<HTMLSelectElement>) => {
-        setAlmacenSelected([...almacenesSelected,event.target.value]);
-    }
-
-    // const filteredCategorias = useMemo(() => {
-
-    //     let filteredCategorias = [...categorias];
-    //     if (hasSearchFilter) filteredCategorias = filteredCategorias.filter(categoria => categoria.nombre.toLowerCase().includes(filterValue.toLowerCase()))
-    //     return filteredCategorias;
-
-    // }, [filterValue,categorias]);
-
-
-
-
-
+    const [ almacenesSelected,setAlmacenSelected ] = useState([]);
 
     return {
 
-        inventario:dataInventario?.inventario as Inventario[],
+        inventario:dataInventario?.inventario as Inventario,
         isLoadingInventario,
         errorInventario,
 
@@ -42,7 +25,7 @@ export default function useInventario(){
         setIsEditing,
 
         almacenesSelected,
-        handleChangeAlmacen
+        setAlmacenSelected
 
     };
 

@@ -12,9 +12,18 @@ export function useFetch(url:string){
     useEffect(() => {
 
         const abortController = new AbortController;
+        const token = localStorage.getItem("token") || "";
+        const fetchOptions = {
+            method:"GET",
+            headers:{
+                "Content-Type":"application/json",
+                "Authorization":`Bearer ${token}`
+            },
+        };
+
         setController(abortController);
         setIsLoading(true);
-        fetch(baseURL,{signal:abortController.signal}) // -> Pequeno rastreador a la peticion y poder rastrarlo
+        fetch(baseURL,{signal:abortController.signal,...fetchOptions}) // -> Pequeno rastreador a la peticion y poder rastrarlo
         .then((response) => response.json())
         .then((data) => setData(data))
         .catch((error) => {

@@ -1,11 +1,15 @@
+import { useParams } from "react-router-dom";
 import useProvedor from "./hooks/useProvedor";
 import ProductosContainer from "./components/Provedor/ProductosContainer";
 import PedidosContainer from "./components/Provedor/PedidosContainer";
-
-import "./assets/Provedor.css";
 import ProvedorInformation from "./components/Provedor/ProvedorInformation";
 
+import "./assets/Provedor.css";
+
+
 export default function Provedor(){
+
+
 
     const {
         provedor,
@@ -19,7 +23,8 @@ export default function Provedor(){
         <section className="ProvedorContainer">
 
             <div className="ProvedorRelations">
-                <ProductosContainer productos={[]}/>
+                {/* @ts-ignore */}
+                <ProductosContainer productos={provedor.provedorProductos.map(provedorProducto => provedorProducto.producto)}/>
                 <PedidosContainer/>
             </div>
 

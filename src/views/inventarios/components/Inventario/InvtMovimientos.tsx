@@ -188,8 +188,8 @@ export default function InvtMovimientos(){
                     </TableHeader>
 
                     <TableBody>
-                        {movimientos.map(movimiento => (
-                            <TableRow key={1}>
+                        {movimientos.map((movimiento,index) => (
+                            <TableRow key={index}>
                                 <TableCell>
                                     <Link target="_blank" className="flex items-center gap-3" to={`/almacen/`}>
                                         <Avatar src=""/>

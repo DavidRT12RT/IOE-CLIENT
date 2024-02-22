@@ -25,7 +25,7 @@ const Inventarios = () => {
 
 
     return (
-        <section className="Inventarios text-sm md:text-base grid grid-cols-1 md:grid-cols-5 gap-5">
+        <section className="Inventarios text-sm md:text-base grid grid-cols-1 md:grid-cols-5 gap-10">
             <div className="LeftColumn col-span-5 md:col-span-2">
                 <InvtFinder filterValue={filterValue} setFilterValue={setFilterValue}/>
                 <InvtResults isLoadingInventarios={isLoadingInventarios} filteredInventarios={filteredInventarios} handleChangeInventarioSelected={handleChangeInventarioSelected}/>

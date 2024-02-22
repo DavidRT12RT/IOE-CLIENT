@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useFetch } from "../../../hooks/useFetch";
+import { Producto } from "../interfaces/Producto";
 
 export const useProducto = (id:string = "") => {
 
@@ -8,7 +9,7 @@ export const useProducto = (id:string = "") => {
 
 
     return {
-        producto:dataProducto?.producto,
+        producto:dataProducto?.producto as Producto,
         isLoadingDataProducto,
         errorDataProducto,
         
