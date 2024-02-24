@@ -4,35 +4,18 @@
     width: 100%;    
     height: 100%;
 
-    padding: 30px;
+    padding:20px 0px;
 
-    text-align: center;
-
-    line-height: 2.5;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap:10px;
 }
 
 .registerContent{
-    width: 90%;
-    min-height: 60%;
-
-    padding: 40px;
-    text-align: start;
-    color:#ffff;
-    /* background-color: rgba(0, 0, 0, 0.02); */
-    border-radius: 8px;
-    border: 1.5px dashed rgb(217, 217, 217);
-    margin-top: 16px;
+    width: 100%;
+    min-height: 100%;
+    padding:25px 0px;
 
     display: flex;
     flex-direction: column;
-    /* justify-content: center; */
-    gap:25px;
-
+    gap:20px;
 }
 
 .resultContainer{
@@ -49,9 +32,13 @@
 
 }
 
+.contentForm{
+    margin-top: 20px;
+    height: fit-content;
+}
+
 @media (min-width:300px) and (max-width:1000px){
     .registerContainer{
         line-height: 1.5;
-        padding: 50px;
     }
 }

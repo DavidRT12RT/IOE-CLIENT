@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { Avatar, Button, Chip, Input, Pagination, Select, SelectItem, Table, TableBody, TableCell, TableColumn, TableHeader, TableRow } from "@nextui-org/react";
+import { Avatar, Button, Input, Pagination, Select, SelectItem, Table, TableBody, TableCell, TableColumn, TableHeader, TableRow } from "@nextui-org/react";
 import { Link } from "react-router-dom";
 
 import { CiSearch } from "react-icons/ci";
@@ -11,20 +11,22 @@ export default function InvtItems({
     isEditing,
     setIsEditing,
     
-    almacenesSelected,
-    setAlmacenSelected
 }:{
     inventario:Inventario,
     isEditing:boolean,
     setIsEditing:any,
-    almacenesSelected:any;
-    setAlmacenSelected:any
 }){
 
     const [ rowsPerPage,setRowsPerPage ] = useState<number>(5);
+    const [ almacenesSelected,setAlmacenSelected ] = useState<string[]>([]);
+    const [ page,setPage ] = useState<number>(1);
+    const [ filterValue,setFilterValue ] = useState("");
+
+    const almacenesInventario = inventario.sucursal.almacenes;
+    const pages = Math.ceil(inventario.detalles.length / rowsPerPage);
 
     useEffect(() => {
-        if(inventario != null) setAlmacenSelected([inventario.sucursal.almacenes[0]?.id]);
+        if(inventario != null) setAlmacenSelected([inventario.sucursal.almacenes[0]?.id,inventario.sucursal.almacenes[1]?.id]);
     },[inventario]);
 
     const filteredDetalles = useMemo(() => {
@@ -35,47 +37,78 @@ export default function InvtItems({
             return detalle.almacenes.some(almacen => almacenesSelected.includes(almacen.almacenId));
         });
 
-        return filteredDetalles;
+        const start = (page - 1) * rowsPerPage;
+        const end = start + rowsPerPage;
 
-    },[inventario,almacenesSelected]);
+        filteredDetalles = filteredDetalles.filter(detalle => {
+            const producto = inventario.productos.find(producto => producto.id === detalle.productoId);
+            return producto && producto.nombre.toLowerCase().includes(filterValue.toLowerCase());
+        });
+
+        return filteredDetalles.slice(start,end);
+
+    },[inventario,almacenesSelected,page,rowsPerPage,filterValue]);
 
 
     const topContent = useMemo(() => {
         return (
             <div className="flex justify-between items-center">
-                <span className="text-default-400 text-small">Total {inventario.detalles.length} productos</span>
-                <div className="flex items-center gap-5">
-                    <label className="flex items-center text-default-400 text-small">
-                        Filas 
-                        <select 
-                            id="rowsPerPageSelect"
-                            value={rowsPerPage} 
-                            onChange={(e) => setRowsPerPage(parseInt(e.target.value))}
-                        >
-                            <option value={5}>5</option>
-                            <option value={10}>10</option>
-                            <option value={15}>15</option>
-                        </select>
-                    </label>
-                    <label className="flex items-center text-default-400 text-small">
-                        Almacenes 
-                        <Select
-                            className="ml-3"
-                            selectedKeys={almacenesSelected}
-                            selectionMode="multiple"
-                            onSelectionChange={(e) => setAlmacenSelected([...Array.from(e)])}
-                        >
-                            {inventario.sucursal.almacenes.map((almacen:Almacen) => (
-                                <SelectItem key={almacen.id} value={almacen.id} textValue={`${almacen.nombre} ${almacen.descripcion}`} id={almacen.id}>{almacen.nombre} {almacen.descripcion}</SelectItem>
-                            ))}
-                        </Select>
-                    </label>
-
+                <span className="text-default-400 text-small">Total {inventario.detalles.length} detalles</span>
+                <div className="flex items-center gap-5" style={{width:"35%"}}>
+                    <Select 
+                        label="Filas por pagina"
+                        labelPlacement="outside"
+                        value={[`${rowsPerPage}`]}
+                        // @ts-ignore
+                        onChange={(e) => setRowsPerPage(parseInt(e.target.value))}
+                    >
+                        <SelectItem key={5} value={5} textValue="5">5</SelectItem>
+                        <SelectItem key={10} value={10} textValue="10">10</SelectItem>
+                        <SelectItem key={15} value={15} textValue="15">15</SelectItem>
+                        <SelectItem key={20} value={20} textValue="20">20</SelectItem>
+                    </Select>
+                    <Select
+                        label="Almacenes"
+                        labelPlacement="outside"
+                        selectedKeys={almacenesSelected}
+                        selectionMode="multiple"
+                        // @ts-ignore
+                        onSelectionChange={(e) => setAlmacenSelected([...Array.from(e)])}
+                    >
+                        {inventario.sucursal.almacenes.map((almacen:Almacen) => (
+                            <SelectItem key={almacen.id} value={almacen.id} textValue={`${almacen.nombre} ${almacen.descripcion}`} id={almacen.id}>{almacen.nombre} {almacen.descripcion}</SelectItem>
+                        ))}
+                    </Select>
                 </div>
 
             </div>
         );
     },[almacenesSelected]);
+
+    const almacenesColumns = almacenesSelected.map((almacenSelected:string) => {
+        const almacenDB = almacenesInventario.find((almacen:Almacen) => almacen.id === almacenSelected);
+        return {
+            key:almacenDB?.id,
+            label:`${almacenDB?.nombre.toUpperCase()} ${almacenDB?.descripcion.toUpperCase()}`
+        }
+    });
+        
+
+    const columns = [ 
+        {
+            key:"NOMBRE",
+            label:"NOMBRE"
+        },
+        {
+            key:"CATEGORIA",
+            label:"CATEGORIA"
+        },
+        {
+            key:"STOCK",
+            label:"STOCK"
+        },
+        ...almacenesColumns
+    ];
 
     return (
 
@@ -89,7 +122,7 @@ export default function InvtItems({
                             className="font-extrabold text-3xl lg:text-5xl w-full"
                             style={{padding:"0px",margin:"0px"}}
                         />
-                        : <h1 className="font-extrabold text-3xl lg:text-5xl">{inventario.nombre_inventario}</h1>
+                        : <h1 className="font-extrabold text-4xl">{inventario.nombre_inventario}</h1>
                 }
                 {
                     isEditing 
@@ -114,11 +147,15 @@ export default function InvtItems({
                 }
                 isClearable
                 placeholder="Buscar producto por su nombre"
+                value={filterValue}
+                onChange={(e) => setFilterValue(e.target.value)}
+                onClear={() => setFilterValue("")}
             />
             <div>
                 <Table
-                    
+                    style={{color:"blck"}}
                     color="primary"
+                    // isStriped
                     topContent={topContent}
                     shadow="none"
                     aria-label="productos"
@@ -130,22 +167,21 @@ export default function InvtItems({
                                 isCompact
                                 showControls
                                 showShadow
-                                page={1}
-                                total={10}
+                                color="primary"
+                                page={page}
+                                total={pages}
+                                onChange={(page) => setPage(page)}
                             />
                         </div>
                     }
                 >
-                    <TableHeader>
-                        <TableColumn key={"nombre"}>NOMBRE PRODUCTO</TableColumn>
-                        <TableColumn key={"categoria"}>CATEGORIA</TableColumn>
-                        <TableColumn key={"cantidad_contada"}>CANTIDAD CONTADA / ALMACEN</TableColumn>
-                        <TableColumn key={"stock"}>STOCK ACTUAL / FECHA ULT. ACT.</TableColumn>
-                    </TableHeader>    
-                    <TableBody>
+                    <TableHeader columns={columns}>
+                        {(column) => <TableColumn key={column?.key}>{column?.label}</TableColumn>}
+                    </TableHeader>
+                    <TableBody emptyContent={"Ningun detalle por mostrar"}>
                         {
 
-                            filteredDetalles.slice(0,rowsPerPage).map((detalle:Detalle,index:number) => {
+                            filteredDetalles.map((detalle:Detalle,index:number) => {
 
                                 const producto = inventario.productos.find((producto:Producto) => producto.id === detalle.productoId);
 
@@ -159,32 +195,24 @@ export default function InvtItems({
                                                 </p>
                                             </Link>
                                         </TableCell>
-                                        <TableCell>
+                                        <TableCell className="font-bold">
                                             {/* {inventario.sucursal.almacenes.find((almacen:any) => almacen.id === almacenesSelected).nombre} */}
-                                            <Chip>{producto?.categoria.nombre}</Chip>
+                                            {producto?.categoria.nombre}
                                         </TableCell>
                                         <TableCell>
-                                            {isEditing 
-                                                ? 
-                                                <Input
-                                                    isRequired
-                                                    size="md"
-                                                    type="number"
-                                                    name="cantidad_contada"
-                                                    // label="Cantidad contada"
-                                                    // value={detalle.cantidad_contada}
-                                                    onValueChange={(e) => console.log(e)}
-                                                /> 
-                                                :
-                                                <div className="flex flex-col items-center">
-                                                    <p className="font-bold">{detalle.almacenes[0].cantidad_contada}</p>
-                                                </div>
-                                            } 
-                                        </TableCell>
-                                        <TableCell className="flex flex-col items-center">
                                             <p className="font-bold">{producto?.stock}</p>
-                                            {/* <p className="text-gray-500 text-small">{moment(detalle.producto.fecha_actualizacion).format("MM/DD/YYYY HH:MM:SS")}</p> */}
                                         </TableCell>
+                                        {/* @ts-ignore */}
+                                        {
+                                            almacenesSelected.map((almacenSelected:string) => {
+                                                const almacenDetalle = detalle.almacenes.find(almacen => almacen.almacenId === almacenSelected);
+                                                return (
+                                                    <TableCell key={almacenSelected} className="font-bold">
+                                                        {almacenDetalle ? almacenDetalle.cantidad_contada: '-'} {/* Si el almacén está disponible, muestra su nombre, de lo contrario, muestra un guion */}
+                                                    </TableCell>
+                                                );
+                                            })
+                                        }
                                     </TableRow>
                                 )
                         })

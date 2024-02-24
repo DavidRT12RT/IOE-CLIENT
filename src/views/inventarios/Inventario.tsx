@@ -18,8 +18,6 @@ export default function Inventario(){
         isEditing,
         setIsEditing,
 
-        almacenesSelected,
-        setAlmacenSelected
     } = useInventario();
 
     
@@ -32,8 +30,6 @@ export default function Inventario(){
                 inventario={inventario} 
                 isEditing={isEditing} 
                 setIsEditing={setIsEditing}
-                almacenesSelected={almacenesSelected}
-                setAlmacenSelected={setAlmacenSelected}
             />
             <InvtInfo 
                 inventario={inventario}

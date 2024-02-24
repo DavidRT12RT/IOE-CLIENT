@@ -6,14 +6,12 @@ import { useRegistrarProducto } from "./hooks/useRegistrarProducto";
 
 //Component's
 import InformacionBasica from "./components/RegistrarProducto/InformacionBasica";
-import InformacionDetallada from "./components/RegistrarProducto/InformacionDetallada";
-// import Archivos from "./components/RegistrarProducto/Archivos";
-
-import "./assets/RegistrarProducto.css";
 import InformacionDeCompra from "./components/RegistrarProducto/InformacionDeCompra";
 import InformacionSat from "./components/RegistrarProducto/InformacionSat";
 import ProvedoresProducto from "../provedores/components/RegistrarProvedor/ProvedoresProducto";
 import AlmacenesProducto from "./components/RegistrarProducto/AlmacenesProducto";
+
+import "./assets/RegistrarProducto.css";
 
 export default function RegistrarProducto (){
 
@@ -78,11 +76,11 @@ export default function RegistrarProducto (){
             content:<InformacionSat values={values} handleChange={handleChange} clavesSat={dataSatClaves?.clavesSat} unidadesMedidaSat={dataSatUnidades?.unidadesMedidaSat}/>,
             id:4
         },
-        {
-            title:"Detalles del producto",
-            content:<InformacionDetallada values={values} setValues={setValues} handleChange={handleChange} productos={dataProductos?.productos}/>,
-            id:5
-        },
+        // {
+        //     title:"Detalles del producto",
+        //     content:<InformacionDetallada values={values} setValues={setValues} handleChange={handleChange} productos={dataProductos?.productos}/>,
+        //     id:5
+        // },
     ];
 
     const { isOpen: isOpenModalRegistrar, onOpen: onOpenModalRegistrar,onClose:onCloseModalRegistrar } = useDisclosure();
@@ -118,19 +116,25 @@ export default function RegistrarProducto (){
 
                 <p className="text-gray-500 text-sm mt-10">Crear un producto en el sistema y asocia los <b>provedores</b> los <b>almacenes</b> y la categoria. </p>
             </div>
-            <Steps current={current} items={steps}/>
-            <div className="registerContent">{steps[current].content}</div>
-            <div className="mt-3">
-                {current > 0 && (
-                    <Button color="primary" style={{ margin: '0 8px' }} onClick={() => prev()}>Anterior</Button>
-                )}
-                {current < steps.length - 1 && ( 
-                    <Button color="primary" onClick={() => next()}> Siguiente</Button>
-                )}
-                {current === steps.length - 1 && (
-                    <Button color="primary" onClick={onOpenModalRegistrar}>Terminar</Button>
-                )}
+
+            <div className="contentForm">
+                <Steps current={current} items={steps}/>
+                <div className="registerContent">{steps[current].content}</div>
+
+                <div className="mt-3">
+                    {current > 0 && (
+                        <Button color="primary" style={{ margin: '0 8px' }} onClick={() => prev()}>Anterior</Button>
+                    )}
+                    {current < steps.length - 1 && ( 
+                        <Button color="primary" onClick={() => next()}> Siguiente</Button>
+                    )}
+                    {current === steps.length - 1 && (
+                        <Button color="primary" onClick={onOpenModalRegistrar}>Terminar</Button>
+                    )}
+                </div>
+
             </div>
+
         </section>
     );
 }

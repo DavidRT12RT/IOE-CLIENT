@@ -1,4 +1,3 @@
-import { useParams } from "react-router-dom";
 import useProvedor from "./hooks/useProvedor";
 import ProductosContainer from "./components/Provedor/ProductosContainer";
 import PedidosContainer from "./components/Provedor/PedidosContainer";
@@ -9,8 +8,6 @@ import "./assets/Provedor.css";
 
 export default function Provedor(){
 
-
-
     const {
         provedor,
         isLoadingProvedor,
@@ -19,6 +16,7 @@ export default function Provedor(){
 
 
     if(isLoadingProvedor) return <h1>Cargando informacion provedor</h1>
+    if(errorProvedor) return <h1>Error al cargar la informacion del provedor</h1>
     return (
         <section className="ProvedorContainer">
 

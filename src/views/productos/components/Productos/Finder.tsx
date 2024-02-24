@@ -6,7 +6,7 @@ export default function Finder(){
 
     return (                
         <div className="finder">
-            <h1 className="text-5xl lg:text-4xl font-extrabold">Productos</h1>
+            <h1 className="text-4xl font-extrabold">Productos</h1>
             <Input
                 className="font-extrabold text-4xl"
                 startContent={

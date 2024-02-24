@@ -70,7 +70,6 @@ export default function InformacionBancaria({values,setValues}:InformacionBancar
                         </ModalBody>
                     </>
                     <ModalFooter>
-                        <Button color="danger" onClick={onClose}>Cerrar sin guardar</Button>
                         <Button color="primary" onClick={handleAddNewBank}>Guardar banco en provedor</Button>
                     </ModalFooter>
 

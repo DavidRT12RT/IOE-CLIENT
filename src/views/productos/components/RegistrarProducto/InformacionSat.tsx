@@ -1,12 +1,13 @@
 import { ChangeEvent } from "react";
 import { initialFormValues } from "../../../productos/hooks/useRegistrarProducto";
 import { Select, SelectItem } from "@nextui-org/react";
+import { ClaveSat, UnidadMedidaSat } from "../../interfaces/Producto";
 
 interface InformacionSatProps {
     values:initialFormValues;
     handleChange:({ target }: ChangeEvent<HTMLInputElement>) => void,
-    clavesSat:string[],
-    unidadesMedidaSat:string[]
+    clavesSat:ClaveSat[],
+    unidadesMedidaSat:UnidadMedidaSat[]
 };
 
 export default function InformacionSat({
@@ -25,8 +26,8 @@ export default function InformacionSat({
                 onChange={handleChange}
             >
                 {
-                    clavesSat.map(claveSat => (
-                        <SelectItem textValue={claveSat} key={claveSat} value={claveSat} id={claveSat}>{claveSat}</SelectItem>
+                    clavesSat.map((claveSat:ClaveSat) => (
+                        <SelectItem textValue={claveSat.descripcion} key={claveSat.id} value={claveSat.id} id={claveSat.id}>{claveSat.clave} {claveSat.descripcion}</SelectItem>
                     ))
                 }
             </Select>
@@ -38,8 +39,8 @@ export default function InformacionSat({
                 onChange={handleChange}
             >
                 {
-                    unidadesMedidaSat.map(unidadMedidaSat => (
-                        <SelectItem key={unidadMedidaSat} value={unidadMedidaSat} id={unidadMedidaSat} textValue={unidadMedidaSat}>{unidadMedidaSat}</SelectItem>
+                    unidadesMedidaSat.map((unidadMedidaSat:UnidadMedidaSat) => (
+                        <SelectItem key={unidadMedidaSat.id} value={unidadMedidaSat.id} id={unidadMedidaSat.id} textValue={unidadMedidaSat.unidad}>{unidadMedidaSat.unidad} {unidadMedidaSat.descripcion}</SelectItem>
                     ))
                 }
             </Select>

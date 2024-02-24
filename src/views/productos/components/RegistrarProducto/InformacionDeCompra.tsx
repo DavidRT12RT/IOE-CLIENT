@@ -63,6 +63,14 @@ export default function InformacionDeCompra({values,handleChange}:InformacionCom
                 <SelectItem value="FIJO" id="FIJO" textValue="FIJO" key={"FIJO"}>FIJO</SelectItem>
                 <SelectItem value="RESURTIBLE" id="RESURTIBLE" textValue="RESURTIBLE" key={"RESURTIBLE"}>RESURTIBLE</SelectItem>
             </Select>
+
+            {/* <Input
+                label="SKU MANUAL"
+                name="SKU"
+                value={values.SKU}
+                onChange={handleChange}
+                description="Generar el SKU de forma manual o el sistema lo asignara de forma autimatica"
+            /> */}
         </>
     );
 

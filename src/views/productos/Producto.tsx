@@ -33,7 +33,7 @@ export default function Producto() {
     return (
         <>
             <section className="productoContainer">
-                {isEditing 
+                {/* {isEditing 
                     ? 
                     <div className="flex items-center gap-3" style={{alignSelf:"flex-end"}}>
                         <Button 
@@ -57,7 +57,7 @@ export default function Producto() {
                             Editar
                         </Button>
                     </div>
-                }
+                } */}
                 <div className="productoFirtsContent  grid grid-cols-1 md:grid-cols-2 gap-20 place-items-center">
                     <ProductoImages/>
                     <ProductoBasicInformation producto={producto} isEditing={isEditing}/>

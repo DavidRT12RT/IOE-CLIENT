@@ -1,4 +1,4 @@
-import { Button, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, useDisclosure } from "@nextui-org/react";
+import { Button, Modal, ModalContent, ModalFooter, ModalHeader, useDisclosure } from "@nextui-org/react";
 import { Steps } from "antd";
 
 import InformacionBasica from "./InformacionBasica";
@@ -61,7 +61,9 @@ export default function RegisterForm (){
                         <h2 className="font-bold text-2xl">Quieres realmente registrar al provedor?</h2>
                     </ModalHeader>
                     <ModalFooter>
-                        <Button onClick={onClose}>Volver atras</Button>
+                        <Button color="danger" onClick={() => {
+                            onClose();
+                        }}>Volver atras</Button>
                         <Button color="primary" onClick={() => {
                             onClose();
                             handleAddNewProvedor();

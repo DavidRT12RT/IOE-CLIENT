@@ -8,6 +8,9 @@ import InformacionDetallada from "./components/RegistrarInventario/InformacionDe
 //Hook's
 import useRegistrarInventario from "./hooks/useRegistrarInventario";
 
+//CSS
+import "./assets/RegistrarInventario.css";
+
 export default function RegistrarInventario (){
 
     const { 
@@ -88,20 +91,26 @@ export default function RegistrarInventario (){
                     )}
                 </ModalContent>
             </Modal>
-            <h1 className="font-extrabold text-2xl lg:text-5xl">Registrar un inventario</h1>
-            <p className="text-gray-500">Llenar los siguientes datos para registrar un inventario en el sistema.</p>
-            <Steps current={current} items={steps}/>
-            <div className="registerContent">{steps[current].content}</div>
-            <div className="mt-3">
-                {current > 0 && (
-                    <Button color="primary" style={{ margin: '0 8px' }} onClick={() => prev()}>Anterior</Button>
-                )}
-                {current < steps.length - 1 && ( 
-                    <Button color="primary" onClick={() => next()}> Siguiente</Button>
-                )}
-                {current === steps.length - 1 && (
-                    <Button color="primary" onClick={onOpenModalRegistrar}>Terminar</Button>
-                )}
+            <div className="descriptionContent">
+                <h2 className="text-4xl font-extrabold">Registrar inventario</h2>
+                <p className="text-gray-500 text-xl mt-2">Ingresa la informacion del <b>inventario</b></p>
+
+                <p className="text-gray-500 text-sm mt-10">Crear un inventario en el sistema y empieza a ajustar <b>articulos</b>.</p>
+            </div>
+            <div className="contentForm">
+                <Steps current={current} items={steps}/>
+                <div className="registerContent">{steps[current].content}</div>
+                <div className="mt-3">
+                    {current > 0 && (
+                        <Button color="primary" style={{ margin: '0 8px' }} onClick={() => prev()}>Anterior</Button>
+                    )}
+                    {current < steps.length - 1 && ( 
+                        <Button color="primary" onClick={() => next()}> Siguiente</Button>
+                    )}
+                    {current === steps.length - 1 && (
+                        <Button color="primary" onClick={onOpenModalRegistrar}>Terminar</Button>
+                    )}
+                </div>
             </div>
         </section>
     );

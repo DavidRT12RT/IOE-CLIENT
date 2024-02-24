@@ -10,16 +10,18 @@ export default function ProductoProvedoresTable({producto}:{producto:Producto}){
                 <TableColumn>NOMBRE</TableColumn>
                 <TableColumn>ALIAS</TableColumn>
                 <TableColumn>TIPO DE PERSONA</TableColumn>
+                <TableColumn>COSTO</TableColumn>
             </TableHeader>
             <TableBody>
                 {
                     producto.provedorProductos.map((provedorProducto:ProvedorProducto) => (
                         <TableRow>
-                            <TableCell className="font-bold text-lg">
+                            <TableCell>
                                 <Link to={`/almacen/provedores/${provedorProducto.provedor.id}`}>{provedorProducto.provedor.nombre}</Link>
                             </TableCell>
                             <TableCell>{provedorProducto.provedor.alias}</TableCell>
-                            <TableCell className="font-bold text-lg">{provedorProducto.provedor.tipoDePersona}</TableCell>
+                            <TableCell >{provedorProducto.provedor.tipoDePersona}</TableCell>
+                            <TableCell >${provedorProducto.costo}</TableCell>
                         </TableRow>
                     ))
                 }

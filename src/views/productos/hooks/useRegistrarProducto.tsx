@@ -34,10 +34,10 @@ export interface AlmacenProductoNew{
 };
 
 export interface initialFormValues {
+    SKU:string;
     nombre:string;
     descripcion:string;
     stock_minimo:string;
-    costo_promedio:string;
     provedores:ProvedorProductoNew[];
     almacenes:AlmacenProductoNew[];
     categoria:any;
@@ -69,10 +69,10 @@ export const useRegistrarProducto = () => {
 
 
     const initialFormValuesState:initialFormValues = {
+        SKU:"",
         nombre:"",
         descripcion:"",
         stock_minimo:"",
-        costo_promedio:"",
         categoria:"",
         inventariable:true,
         almacenes:[],
@@ -102,9 +102,6 @@ export const useRegistrarProducto = () => {
     const handleRegisterProducto = async () => {
 
         //@ts-ignore
-        values.almacenes = values.almacenes.map(almacen => ({almacen,stock:1}));
-        values.categoria = values.categoria.id;
-
         const response = await fetchAdapter(`productos`,values,"POST");
         const body = await response.json();
 

@@ -68,7 +68,6 @@ export default function InformacionDirecciones({values,setValues}:InformacionDir
                         </ModalBody>
                     </>
                     <ModalFooter>
-                        <Button color="danger" onClick={onClose}>Cerrar sin guardar</Button>
                         <Button color="primary" onClick={handleAddNewAddress}>Guardar direccion provedor</Button>
                     </ModalFooter>
 

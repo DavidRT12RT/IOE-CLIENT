@@ -25,7 +25,7 @@ export default function LeftMenu() {
 
     return (
         <nav className={"LeftMenu " + (isOpen ? "isOpen" : "")}>
-            {/* <div className="modules">
+            <div className="modules">
                 <p className="icon"><MdOutlineInventory/></p>
             </div>
             <div className="options">
@@ -51,7 +51,7 @@ export default function LeftMenu() {
                     </DropdownMenu>
                 </Dropdown>
                 <p className="icon" onClick={() => setIsOpen(!isOpen)}><IoIosArrowForward/></p>
-            </div> */}
+            </div>
         </nav>
     );
 

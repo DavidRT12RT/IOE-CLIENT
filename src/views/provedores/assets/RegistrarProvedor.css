@@ -21,11 +21,13 @@
     width: 100%;
     border:0px;
     padding: 10px 10px;
+    margin-top: 20px;
 
 }
 
 .contentForm{
-    min-height:100%;
+    margin-top: 20px;
+    height: fit-content;
 }
 
 @media (min-width:100px) and (max-width:1000px){

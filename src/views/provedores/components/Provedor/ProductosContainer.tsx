@@ -17,7 +17,7 @@ export default function ProductosContainer({productos = []}:ProductosContainerPr
                 placeholder="Buscar por nombre"
                 variant="flat"
             />
-            <Table removeWrapper hideHeader>                
+            <Table isHeaderSticky removeWrapper hideHeader>                
                 <TableHeader>
                     <TableColumn>NOMBRE</TableColumn>
                     <TableColumn>STOCK</TableColumn>
