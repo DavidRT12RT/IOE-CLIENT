@@ -1,0 +1,130 @@
+/* Categorias screen styles */
+.categoriasContainer{
+
+    width: 100%;
+    height: 100%;
+    padding:20px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 20px;
+
+
+
+}
+
+.categoriasContainer .descripcion{
+    text-align: start;
+    width: 100%;
+    line-height: 2;
+}
+
+.categoriasSecondContainer{
+
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+
+    background-color: var(--color-bkg);
+
+}
+
+.categoriasMainContainer{
+    width: 100%;
+    height: 100%;    
+
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+
+    overflow-y: auto;
+
+}
+
+.categoriasMainContainer .categoriasResults{
+    grid-area: 1 / 1 / 6 / 3;
+    width: 100%;
+    height: 100%;
+
+    padding:10px;
+
+    overflow-y: hidden;
+
+    display: flex;
+    flex-direction: column;
+
+}
+
+.categoriasMainContainer .categoriaSelectedNull{
+    grid-area: 1 / 3 / 6 / 6;
+    width: 100%;
+    height: 100%;
+    border-left: 1px solid grey;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding:20px;
+}
+
+.categoriasMainContainer .categoriaSelected{
+    grid-area: 1 / 3 / 6 / 6;
+    width: 100%;
+    height: 100%;
+    padding:20px;
+
+    border-left: 1px solid grey;
+
+    display: flex;
+    flex-direction: column;
+
+
+
+}
+
+
+.categoriaCard{
+
+    width: 100%;
+    height: fit-content;
+
+    padding:20px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    border-bottom: 1px solid gray;
+
+    cursor:pointer;
+    transition: 1s ease; /* Transición suave para la propiedad height */
+
+
+}
+
+.categoriaDetalle{
+    width: 200px;    
+    height: 100px;
+
+    background-color: var(--color-bkg);
+    padding:20px;
+    border:1px solid black;
+}
+
+
+@media (min-width:100px) and (max-width:1000px){
+    .categoriasContainer .descripcion{
+        width: 100%;
+    }
+
+    .categoriasSecondContainer {
+        width: 100%;
+        height: 100%;
+    }
+
+}

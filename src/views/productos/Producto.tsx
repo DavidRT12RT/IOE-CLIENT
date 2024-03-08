@@ -58,7 +58,7 @@ export default function Producto() {
                         </Button>
                     </div>
                 } */}
-                <div className="productoFirtsContent  grid grid-cols-1 md:grid-cols-2 gap-20 place-items-center">
+                <div className="productoFirtsContent  grid grid-cols-1 md:grid-cols-2 place-items-center">
                     <ProductoImages/>
                     <ProductoBasicInformation producto={producto} isEditing={isEditing}/>
                 </div>

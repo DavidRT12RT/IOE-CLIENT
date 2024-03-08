@@ -1,4 +1,4 @@
-import { Chip, Image } from "@nextui-org/react";
+import { Chip } from "@nextui-org/react";
 import { Producto } from "../../interfaces/Producto";
 import { Link } from "react-router-dom";
 import { GoDotFill } from "react-icons/go";
@@ -23,7 +23,7 @@ export default function ProductoCard({producto}:ProductoCardProps){
             </div>
             <p className="text-lg">${producto.costo_promedio}</p>
             <p className="text-gray-500 text-sm">Stock: {producto.stock} </p>
-            <p className="text-gray-500 text-sm">{producto.categoria.nombre}</p>
+            <p className="text-gray-500 text-sm">{producto?.categoria?.nombre}</p>
         </Link>
     );
 

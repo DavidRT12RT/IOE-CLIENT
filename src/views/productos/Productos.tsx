@@ -1,12 +1,12 @@
 
-import { Pagination, Select, SelectItem } from "@nextui-org/react";
+import { Pagination } from "@nextui-org/react";
 
 
 //Component's
 import Finder from "./components/Productos/Finder";
 import Categorys from "./components/Productos/Categorys";
 import ProductoCard from "./components/Productos/ProductoCard";
-import TableProductos from "./components/Productos/TableProductos";
+import TableProductos, { SelectionMode } from "./components/Productos/TableProductos";
 
 
 import { Producto } from "./interfaces/Producto";
@@ -26,6 +26,7 @@ export default function Productos(){
     } = useProductos();
 
     if(isLoadingProductos) return <h1>Cargando informacion de productos</h1>
+    if(errorProductos) return <h1>Error al cargar informacion de los productos</h1>
     return (
         <section className="productosContainer">
 
@@ -34,12 +35,13 @@ export default function Productos(){
                 <Categorys typeOfVisible={typeOfVisible} setTypeOfVisible={setTypeOfVisible}/>
             </div>
 
-            <p className="text-gray-500">Mostrando {productos.length} productos</p>
+            {typeOfVisible !== "table" && <p className="text-gray-500">Mostrando {productos.length} productos</p>}
+
             <div className="productsSection">
                 {
                     typeOfVisible === "table" 
                     ? 
-                        <TableProductos productos={productos}/>
+                        <TableProductos productos={productos} selectionMode={SelectionMode.multiple}/>
                     :
                         (
                             productos.map((producto:Producto) => (
@@ -49,19 +51,24 @@ export default function Productos(){
                 }
             </div>
 
-            <div className="showResultsSection">
-                <label className="flex items-center text-default-400 text-small">
-                    Productos por pagina
-                    <select
-                        className="bg-transparent outline-none text-default-400 text-small ms-5"
-                    >
-                        <option value="5">5</option>
-                        <option value="10">10</option>
-                        <option value="15">15</option>
-                    </select>
-                </label>
-                <Pagination showControls total={5} initialPage={1} />
-            </div>
+            {
+                typeOfVisible !== "table" &&             
+                (
+                    <div className="showResultsSection">
+                     <label className="flex items-center text-default-400 text-small">
+                            Productos por pagina
+                            <select
+                                className="bg-transparent outline-none text-default-400 text-small ms-5"
+                            >
+                                <option value="5">5</option>
+                                <option value="10">10</option>
+                                <option value="15">15</option>
+                            </select>
+                        </label>
+                    <Pagination showControls total={5} initialPage={1} />
+                    </div>
+                )
+            }
 
         </section>
     );

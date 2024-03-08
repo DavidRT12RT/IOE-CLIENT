@@ -79,7 +79,7 @@ export const useRegistrarProducto = () => {
         provedores:[],
         unidad_compra:UnidadCompra.PAQUETE,
         unidad_venta:UnidadVenta.PIEZA,
-        metodo_reabasto:MetodoReabasto.FIJO,
+        metodo_reabasto:MetodoReabasto.RESURTIBLE,
         claveSat:"",
         unidadMedidaSat:"",
         es_producto_padre:false,

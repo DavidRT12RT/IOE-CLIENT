@@ -38,7 +38,7 @@ export default function ProductoBasicInformation({producto,isEditing}:ProductoBa
                 <p className="font-bold">Stock total:</p><p className="text-gray-500">{producto.stock}</p>
                 <p className="font-bold">Stock minimo:</p><p className="text-gray-500">{producto.stock_minimo}</p>
                 <p className="font-bold">Costo promedio:</p><p className="text-gray-500">${costoPromedio}</p>
-                <p className="font-bold">Categoria:</p><p className="text-gray-500">{producto.categoria.nombre}</p>
+                <p className="font-bold">Categoria:</p><p className="text-gray-500">{producto.categoria!= null ? producto.categoria.nombre : "No vinculada a ninguna categoria"}</p>
                 <p className="font-bold">Estatus:</p><p className="text-gray-500">{producto.estatus}</p>
                 <p className="font-bold">Fech. Registro:</p><p className="text-gray-500">{moment(producto.fecha_registro).format("DD/MM/YYYY HH:SS:MM")}</p>
                 <p className="font-bold">Fech. Ult. Actualizacion:</p><p className="text-gray-500">{moment(producto.fecha_actualizacion).format("DD/MM/YYYY HH:SS:MM")}</p>

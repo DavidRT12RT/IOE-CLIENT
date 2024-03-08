@@ -1,0 +1,16 @@
+/* Alert styles */
+.alert{
+    width: fit-content;
+    height: fit-content;
+
+    padding: 15px;
+    margin:10px 0px;
+
+    border-radius: 15px;
+
+    display: flex;
+    flex-direction: row;
+
+    justify-content: space-between;
+    align-items: center;
+}

@@ -6,6 +6,7 @@ export default function ProductoAlmacenTable({producto}:{producto:Producto}){
     return (
         <Table removeWrapper>
             <TableHeader>
+                <TableColumn>ID ALMACEN</TableColumn>
                 <TableColumn>ALMACEN</TableColumn>
                 <TableColumn>STOCK</TableColumn>
                 <TableColumn>TIPO</TableColumn>
@@ -14,6 +15,7 @@ export default function ProductoAlmacenTable({producto}:{producto:Producto}){
                 {
                     producto.productosAlmacen.map(productoAlmacen => (
                         <TableRow key={productoAlmacen.id}>
+                            <TableCell>{productoAlmacen.almacen.id}</TableCell>
                             <TableCell>{productoAlmacen.almacen.nombre} {productoAlmacen.almacen.descripcion}</TableCell>
                             <TableCell>{productoAlmacen.stock}</TableCell>
                             <TableCell>{productoAlmacen.almacen.tipo_almacen}</TableCell>

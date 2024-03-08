@@ -10,6 +10,8 @@ import Productos from "../views/productos/Productos";
 import RegistrarProvedor from "../views/provedores/RegistrarProvedor";
 import Provedor from "../views/provedores/Provedor";
 import Provedores from "../views/provedores/Provedores";
+import Categorias from "../views/categorias/Categorias";
+import { CategoriasProvider } from "../views/categorias/context/CategoriasProvider";
 
 export default function AlmacenRouter(){
 
@@ -25,6 +27,11 @@ export default function AlmacenRouter(){
             <Route path="/inventarios" element={<Inventarios/>}></Route>
             <Route path="/inventarios/:id" element={<Inventario/>}></Route>
             <Route path="/inventarios/registrar" element={<RegistrarInventario/>}></Route>
+            <Route path="/categorias" element={
+                <CategoriasProvider>
+                    <Categorias/>
+                </CategoriasProvider>
+            }></Route>
         </Routes>
     );
 

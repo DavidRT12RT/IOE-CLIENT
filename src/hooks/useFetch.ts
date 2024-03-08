@@ -51,7 +51,9 @@ export function useFetch(url:string){
 
     return {
         data,
+        setData,
         isLoading,
+        setIsLoading,
         error,
         handleCancelRequest
     };

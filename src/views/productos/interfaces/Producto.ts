@@ -94,11 +94,11 @@ export interface Producto {
     fecha_registro:      string;
     fecha_actualizacion: string;
     detalles:            Detalles;
-    claveSat:            ClaveSat;
-    unidadMedidaSat:     UnidadMedidaSat;
-    productosAlmacen:    ProductosAlmacen[];
-    categoria:           Categoria;
-    provedorProductos:   ProvedorProducto[];
+    claveSat?:            ClaveSat;
+    unidadMedidaSat?:     UnidadMedidaSat;
+    productosAlmacen?:    ProductosAlmacen[];
+    categoria?:           Categoria;
+    provedorProductos?:   ProvedorProducto[];
 }
 export enum Estatus {
 	ACTIVO = "ACTIVO",

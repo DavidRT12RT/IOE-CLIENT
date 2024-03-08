@@ -19,7 +19,7 @@ export const InvtFinder  = ({filterValue,setFilterValue}:InvtFinderProps) => {
 
     return (
         <div className="flex flex-col gap-4">
-            <h1 className="text-5xl lg:text-6xl font-extrabold">Inventarios</h1>
+            <h1 className="text-5xl lg:text-4xl font-extrabold">Inventarios</h1>
             <Input
                 isClearable
                 placeholder="Busca por nombre del inventario"

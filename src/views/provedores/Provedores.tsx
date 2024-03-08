@@ -2,11 +2,12 @@ import Categorys from "./components/Provedores/Categorys";
 import Finder from "./components/Provedores/Finder";
 import useProvedores from "./hooks/useProvedores";
 
-import "./assets/Provedores.css";
 import { Pagination, Table, TableBody, TableCell, TableColumn, TableHeader, TableRow } from "@nextui-org/react";
 import { Provedor } from "./interfaces/Provedor.interface";
 import { Link } from "react-router-dom";
 import { IoIosArrowForward } from "react-icons/io";
+
+import "./assets/Provedores.css";
 
 
 export default function Provedores(){

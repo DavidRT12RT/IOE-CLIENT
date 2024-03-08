@@ -34,7 +34,6 @@ const Inventarios = () => {
                 inventarioSelected === null 
                 ? 
                     <div className="invtInfoNotSelected col-span-0 md:col-span-3 md:block">
-                        <img src={logo}/>
                         <h2 className="text-2xl font-bold">Seleciona un inventario</h2> 
                         <p className="">Seleciona un inventario para ver la previsualizacion de la informacion y editarlo.</p>
                     </div>  
